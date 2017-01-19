@@ -17,7 +17,7 @@ namespace UniBlocks.UnitTests
 				{
 				}
 			};
-			var result = BuildPointDirectory(mock);
+			var result = new GLUniformBindingPointLayout(mock);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(0, result.NoOfBindingPoints);
 		}
@@ -37,7 +37,7 @@ namespace UniBlocks.UnitTests
 					}
 				}
 			};
-			var result = BuildPointDirectory(mock);
+			var result = new GLUniformBindingPointLayout(mock);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(10, result.NoOfBindingPoints);
 		}
@@ -63,7 +63,7 @@ namespace UniBlocks.UnitTests
 					},
 				}
 			};
-			var result = BuildPointDirectory(mock);
+			var result = new GLUniformBindingPointLayout(mock);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(3, result.NoOfBindingPoints);
 		}
@@ -89,7 +89,7 @@ namespace UniBlocks.UnitTests
 					},
 				}
 			};
-			var result = BuildPointDirectory(mock);
+			var result = new GLUniformBindingPointLayout(mock);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(3, result.NoOfBindingPoints);
 		}
@@ -115,10 +115,10 @@ namespace UniBlocks.UnitTests
 					},
 				}
 			};
-			var result = BuildPointDirectory(mock);
+			var result = new GLUniformBindingPointLayout(mock);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(3, result.NoOfBindingPoints);
-			Assert.AreEqual(2, result.Offsets.Length);
+			Assert.AreEqual(2, result.Offsets.Keys.Count);
 
 			{
 				var g1 = result.Offsets[0];
@@ -135,43 +135,6 @@ namespace UniBlocks.UnitTests
 			}
 		}
 
-		static GLBindingPointDirectoryLayout BuildPointDirectory(IGLPipelineLayout layout)
-		{
-			var count = 0U;
-			var groups = new SortedList<uint, GLBindingPointOffsetInfo>();
-			// build flat slots array for uniforms 
-			foreach (var desc in layout.Bindings)
-			{
-				if (desc.DescriptorType == Magnesium.MgDescriptorType.UNIFORM_BUFFER
-					|| desc.DescriptorType == Magnesium.MgDescriptorType.UNIFORM_BUFFER_DYNAMIC)
-				{
-					count += desc.DescriptorCount;
-					groups.Add(desc.Binding,
-						   new GLBindingPointOffsetInfo
-						   {
-							   Binding = desc.Binding,
-							   First = 0U,
-							   Last = desc.DescriptorCount - 1,
-							});
-				}
 
-
-			}
-
-			var startingOffset = 0U;
-			foreach (var g in groups.Values)
-			{
-				g.First += startingOffset;
-				g.Last += startingOffset;
-				startingOffset += g.Last + 1;
-			}
-
-			var result = new GLBindingPointOffsetInfo[groups.Count];
-			groups.Values.CopyTo(result, 0);
-			return new GLBindingPointDirectoryLayout { 
-				NoOfBindingPoints = count,
-				Offsets = result,
-			};
-		}
 	}
 }

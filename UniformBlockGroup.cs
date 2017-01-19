@@ -1,14 +1,14 @@
-﻿namespace UniBlocks
+﻿namespace Magnesium.OpenGL
 {
     public class UniformBlockGroup
     {
 		public string Prefix { get;  set; }
-        public int BindingIndex { get;  set; }
+        public uint BindingIndex { get;  set; }
         public uint Count { get; set; }
 		public uint ArrayStride { get; set; }
 		public uint HighestRow { get; set; }
-
 		public uint MatrixStride { get; set; }
-
+		public uint HighestLayer { get; set; }
+		public uint CubeStride { get; set; }
     }
 }

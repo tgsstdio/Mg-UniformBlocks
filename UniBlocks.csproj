@@ -66,6 +66,9 @@
     <Compile Include="GLUniformBlockEntry.cs" />
     <Compile Include="GLDescriptorSetUpdator.cs" />
     <Compile Include="IGLDescriptorSetUpdator.cs" />
+    <Compile Include="GLUniformBindingPointLayout.cs" />
+    <Compile Include="GLBindingPointOffsetInfo.cs" />
+    <Compile Include="UniformBlockGroupCollator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magnesium, Version=5.0.4.30756, Culture=neutral, processorArchitecture=MSIL">

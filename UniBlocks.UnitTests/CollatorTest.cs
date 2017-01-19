@@ -12,14 +12,16 @@ namespace UniBlocks.UnitTests
 		{
 			IBlockTokenizer tokenizer = new BlockTokenizer();
 			var token0 = tokenizer.Extract("UBO[0]");
+			token0.BindingIndex = 10;
 			var collator = new UniformBlockGroupCollator();
 			collator.Add(token0);
 			var token1 = tokenizer.Extract("UBO[1]");
+			token1.BindingIndex = 10;
 			collator.Add(token1);
 
 			var groups = collator.Collate();
-			Assert.AreEqual(1, groups.Length);
-			var firstGroup = groups[0];
+			Assert.AreEqual(1, groups.Values.Count);
+			var firstGroup = groups[10];
 			Assert.AreEqual("UBO", firstGroup.Prefix);
 			Assert.AreEqual(2, firstGroup.Count);
 		}
@@ -48,8 +50,8 @@ namespace UniBlocks.UnitTests
 			collator.Add(token1);
 
 			var groups = collator.Collate();
-			Assert.AreEqual(1, groups.Length);
-			var firstGroup = groups[0];
+			Assert.AreEqual(1, groups.Values.Count);
+			var firstGroup = groups[10];
 			Assert.AreEqual("UBO", firstGroup.Prefix);
 			Assert.AreEqual(2, firstGroup.Count);
 			Assert.AreEqual(token0.BindingIndex, firstGroup.BindingIndex);
@@ -79,18 +81,18 @@ namespace UniBlocks.UnitTests
 			collator.Add(token1);
 
 			var groups = collator.Collate();
-			Assert.AreEqual(2, groups.Length);
+			Assert.AreEqual(2, groups.Values.Count);
 
 			// SHOULD BE SORTED BY BINDING INDEX
 			{
-				var g = groups[0];
+				var g = groups[10];
 				Assert.AreEqual("UBO", g.Prefix);
 				Assert.AreEqual(1, g.Count);
 				Assert.AreEqual(10, g.BindingIndex);
 			}
 
 			{
-				var g = groups[1];
+				var g = groups[15];
 				Assert.AreEqual("ubo", g.Prefix);
 				Assert.AreEqual(1, g.Count);
 				Assert.AreEqual(15, g.BindingIndex);
@@ -132,25 +134,25 @@ namespace UniBlocks.UnitTests
 			collator.Add(token2);
 
 			var groups = collator.Collate();
-			Assert.AreEqual(3, groups.Length);
+			Assert.AreEqual(3, groups.Values.Count);
 
 			// SHOULD BE SORTED BY BINDING INDEX
 			{
-				var group = groups[0];
+				var group = groups[10];
 				Assert.AreEqual("C", group.Prefix);
 				Assert.AreEqual(1, group.Count);
 				Assert.AreEqual(token0.BindingIndex, group.BindingIndex);
 			}
 
 			{
-				var group = groups[1];
+				var group = groups[11];
 				Assert.AreEqual("B", group.Prefix);
 				Assert.AreEqual(1, group.Count);
 				Assert.AreEqual(token2.BindingIndex, group.BindingIndex);
 			}
 
 			{
-				var group = groups[2];
+				var group = groups[12];
 				Assert.AreEqual("A", group.Prefix);
 				Assert.AreEqual(1, group.Count);
 				Assert.AreEqual(token1.BindingIndex, group.BindingIndex);
@@ -181,15 +183,17 @@ namespace UniBlocks.UnitTests
 			collator.Add(token1);
 
 			var groups = collator.Collate();
-			Assert.AreEqual(1, groups.Length);
+			Assert.AreEqual(1, groups.Values.Count);
 			{
-				var firstGroup = groups[0];
+				var firstGroup = groups[10];
 				Assert.AreEqual("UBO", firstGroup.Prefix);
 				Assert.AreEqual(2, firstGroup.Count);
-				Assert.AreEqual(token0.BindingIndex, firstGroup.BindingIndex);
-				Assert.AreEqual(2, firstGroup.ArrayStride);
-				Assert.AreEqual(0, firstGroup.HighestRow);
-				Assert.AreEqual(2, firstGroup.MatrixStride);
+				Assert.AreEqual(10, firstGroup.BindingIndex, nameof(firstGroup.BindingIndex));
+				Assert.AreEqual(2, firstGroup.ArrayStride, nameof(firstGroup.ArrayStride));
+				Assert.AreEqual(1, firstGroup.HighestRow, nameof(firstGroup.HighestRow));
+				Assert.AreEqual(2, firstGroup.MatrixStride, nameof(firstGroup.MatrixStride));
+				Assert.AreEqual(1, firstGroup.HighestLayer, nameof(firstGroup.HighestLayer));
+				Assert.AreEqual(2, firstGroup.CubeStride, nameof(firstGroup.CubeStride));
 			}
 		}
 
@@ -217,15 +221,17 @@ namespace UniBlocks.UnitTests
 			collator.Add(token1);
 
 			var groups = collator.Collate();
-			Assert.AreEqual(1, groups.Length);
+			Assert.AreEqual(1, groups.Values.Count);
 			{
-				var firstGroup = groups[0];
+				var firstGroup = groups[10];
 				Assert.AreEqual("UBO", firstGroup.Prefix);
 				Assert.AreEqual(2, firstGroup.Count);
-				Assert.AreEqual(token0.BindingIndex, firstGroup.BindingIndex);
-				Assert.AreEqual(3, firstGroup.ArrayStride);
-				Assert.AreEqual(2, firstGroup.HighestRow);
-				Assert.AreEqual(6, firstGroup.MatrixStride);
+				Assert.AreEqual(10, firstGroup.BindingIndex, nameof(firstGroup.BindingIndex));
+				Assert.AreEqual(3, firstGroup.ArrayStride, nameof(firstGroup.ArrayStride));
+				Assert.AreEqual(3, firstGroup.HighestRow, nameof(firstGroup.HighestRow));
+				Assert.AreEqual(9, firstGroup.MatrixStride,nameof(firstGroup.MatrixStride));
+				Assert.AreEqual(1, firstGroup.HighestLayer, nameof(firstGroup.HighestLayer));
+				Assert.AreEqual(9, firstGroup.CubeStride, nameof(firstGroup.CubeStride));
 			}
 		}
 
@@ -262,15 +268,17 @@ namespace UniBlocks.UnitTests
 			});
 
 			var groups = collator.Collate();
-			Assert.AreEqual(1, groups.Length);
+			Assert.AreEqual(1, groups.Values.Count);
 			{
-				var firstGroup = groups[0];
+				var firstGroup = groups[10];
 				Assert.AreEqual("UBO", firstGroup.Prefix);
 				Assert.AreEqual(3, firstGroup.Count);
-				Assert.AreEqual(10, firstGroup.BindingIndex);
-				Assert.AreEqual(9, firstGroup.ArrayStride);
-				Assert.AreEqual(0, firstGroup.HighestRow);
-				Assert.AreEqual(9, firstGroup.MatrixStride);
+				Assert.AreEqual(10, firstGroup.BindingIndex, nameof(firstGroup.BindingIndex));
+				Assert.AreEqual(9, firstGroup.ArrayStride, nameof(firstGroup.ArrayStride));
+				Assert.AreEqual(1, firstGroup.HighestRow, nameof(firstGroup.HighestRow));
+				Assert.AreEqual(9, firstGroup.MatrixStride, nameof(firstGroup.MatrixStride));
+				Assert.AreEqual(1, firstGroup.HighestLayer, nameof(firstGroup.HighestLayer));
+				Assert.AreEqual(9, firstGroup.CubeStride, nameof(firstGroup.CubeStride));
 			}
 		}
 		[Test()]
@@ -306,15 +314,45 @@ namespace UniBlocks.UnitTests
 			});
 
 			var groups = collator.Collate();
-			Assert.AreEqual(1, groups.Length);
+			Assert.AreEqual(1, groups.Values.Count);
 			{
-				var firstGroup = groups[0];
+				var firstGroup = groups[10];
 				Assert.AreEqual("UBO", firstGroup.Prefix);
 				Assert.AreEqual(3, firstGroup.Count);
-				Assert.AreEqual(10, firstGroup.BindingIndex);
-				Assert.AreEqual(5, firstGroup.ArrayStride);
-				Assert.AreEqual(3, firstGroup.HighestRow);
-				Assert.AreEqual(15, firstGroup.MatrixStride);
+				Assert.AreEqual(10, firstGroup.BindingIndex, nameof(firstGroup.BindingIndex));
+				Assert.AreEqual(5, firstGroup.ArrayStride, nameof(firstGroup.ArrayStride));
+				Assert.AreEqual(4, firstGroup.HighestRow, nameof(firstGroup.HighestRow));
+				Assert.AreEqual(20, firstGroup.MatrixStride, nameof(firstGroup.MatrixStride));
+				Assert.AreEqual(1, firstGroup.HighestLayer, nameof(firstGroup.HighestLayer));
+				Assert.AreEqual(20, firstGroup.CubeStride, nameof(firstGroup.CubeStride));
+			}
+		}
+
+		[Test]
+		public void RowOffset4()
+		{
+			var collator = new UniformBlockGroupCollator();
+			collator.Add(new UniformBlockInfo
+			{
+				Prefix = "UBO",
+				BindingIndex = 10,
+				X = 7,
+				Y = 5,
+				Z = 3,
+			});
+
+			var groups = collator.Collate();
+			Assert.AreEqual(1, groups.Values.Count);
+			{
+				var firstGroup = groups[10];
+				Assert.AreEqual("UBO", firstGroup.Prefix);
+				Assert.AreEqual(1, firstGroup.Count);
+				Assert.AreEqual(10, firstGroup.BindingIndex, nameof(firstGroup.BindingIndex));
+				Assert.AreEqual(8, firstGroup.ArrayStride, nameof(firstGroup.ArrayStride));
+				Assert.AreEqual(6, firstGroup.HighestRow, nameof(firstGroup.HighestRow));
+                Assert.AreEqual(48, firstGroup.MatrixStride, nameof(firstGroup.MatrixStride));
+				Assert.AreEqual(4, firstGroup.HighestLayer, nameof(firstGroup.HighestLayer));
+				Assert.AreEqual(192, firstGroup.CubeStride, nameof(firstGroup.CubeStride));
 			}
 		}
 	}

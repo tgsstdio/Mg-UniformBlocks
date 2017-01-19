@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Magnesium.OpenGL;
 
-namespace UniBlocks
+namespace Magnesium.OpenGL
 {
-	class UniformBlockGroupCollator
+	public class UniformBlockGroupCollator
 	{
 		Dictionary<string, UniformBlockGroup> mGroups;
 
@@ -23,7 +22,8 @@ namespace UniBlocks
 				}
 
 				found.ArrayStride = Math.Max(found.ArrayStride, entry.X + 1);
-				found.HighestRow = Math.Max(found.HighestRow, entry.Y);
+				found.HighestRow = Math.Max(found.HighestRow, entry.Y + 1);
+				found.HighestLayer = Math.Max(found.HighestLayer, entry.Z + 1);
 				found.Count += 1;
 			}
 			else
@@ -34,23 +34,24 @@ namespace UniBlocks
 					BindingIndex = entry.BindingIndex,
 					Count = 1,
 					ArrayStride = entry.X + 1,
-					HighestRow = entry.Y,
+					HighestRow = entry.Y + 1,
+					HighestLayer = entry.Z + 1,
 				};
 				mGroups.Add(found.Prefix, found);
 			}
 		}
 
-		public UniformBlockGroup[] Collate()
+		public SortedDictionary<uint, UniformBlockGroup> Collate()
 		{
-			var sortedResults = new SortedList<int, UniformBlockGroup>();
+			var sortedResults = new SortedDictionary<uint, UniformBlockGroup>();
 			foreach (var blockGroup in mGroups.Values)
 			{
 				blockGroup.MatrixStride = (blockGroup.ArrayStride * Math.Max(blockGroup.HighestRow, 1));
+				blockGroup.CubeStride = (blockGroup.MatrixStride * Math.Max(blockGroup.HighestLayer, 1));
 				sortedResults.Add(blockGroup.BindingIndex, blockGroup);
 			}
-			var results = new UniformBlockGroup[sortedResults.Count];
-			sortedResults.Values.CopyTo(results, 0);
-			return results;
+
+			return sortedResults;
 		}
 	}
 }
