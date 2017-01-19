@@ -39,14 +39,24 @@ namespace Magnesium.OpenGL
 					ActiveIndex = entry.ActiveIndex,
 				};
 
-
-				GLBindingPointOffsetInfo found;
-				if (layout.Offsets.TryGetValue(entry.Token.BindingIndex, out found))
+				UniformBlockGroup mapGroup;
+				if (groups.TryGetValue(entry.Token.BindingIndex, out mapGroup))
 				{
-					var offset = found.First;		
-				
-					//BlockBindings[i].BindingPoint = x;
+					// ROW-ORDER 
+					var xOffset = entry.Token.X;
+					var yOffset = mapGroup.ArrayStride * entry.Token.Y;
+					var zOffset = mapGroup.MatrixStride * entry.Token.Z;
+
+					GLBindingPointOffsetInfo bindingOffset;
+					if (layout.Offsets.TryGetValue(entry.Token.BindingIndex, out bindingOffset))
+					{
+						var offset = bindingOffset.First;
+
+						//BlockBindings[i].BindingPoint = x;
+					}
 				}
+
+
 
 				i += 1;
 			}
