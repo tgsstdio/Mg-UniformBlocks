@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BlockTokenizer.cs" />
+    <Compile Include="GLUniformBlockNameParser.cs" />
     <Compile Include="GLBufferDescriptor.cs" />
     <Compile Include="GLDescriptorBinding.cs" />
     <Compile Include="GLDescriptorBindingGroup.cs" />
@@ -46,7 +46,7 @@
     <Compile Include="GLPipelineLayout.cs" />
     <Compile Include="GLSampler.cs" />
     <Compile Include="GLUniformBinding.cs" />
-    <Compile Include="IBlockTokenizer.cs" />
+    <Compile Include="IGLUniformBlockNameParser.cs" />
     <Compile Include="IGLBuffer.cs" />
     <Compile Include="IGLDescriptorSet.cs" />
     <Compile Include="IGLDescriptorSetLayout.cs" />
@@ -57,8 +57,8 @@
     <Compile Include="GLInternalCache.cs" />
     <Compile Include="IGLPipelineLayout.cs" />
     <Compile Include="IGLSamplerEntrypoint.cs" />
-    <Compile Include="UniformBlockGroup.cs" />
-    <Compile Include="UniformBlockInfo.cs" />
+    <Compile Include="GLUniformBlockGroupInfo.cs" />
+    <Compile Include="GLUniformBlockInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GLImage.cs" />
     <Compile Include="IGLUniformBlockEntrypoint.cs" />
@@ -68,7 +68,12 @@
     <Compile Include="IGLDescriptorSetUpdator.cs" />
     <Compile Include="GLUniformBindingPointLayout.cs" />
     <Compile Include="GLBindingPointOffsetInfo.cs" />
-    <Compile Include="UniformBlockGroupCollator.cs" />
+    <Compile Include="GLUniformBlockGroupCollator.cs" />
+    <Compile Include="GLBufferRangeTarget.cs" />
+    <Compile Include="GLActiveUniformBlockInfo.cs" />
+    <Compile Include="GLInternalCacheBlockBinding.cs" />
+    <Compile Include="GLInternalCacheArrayMapper.cs" />
+    <Compile Include="IGLDescriptorSetBinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magnesium, Version=5.0.4.30756, Culture=neutral, processorArchitecture=MSIL">

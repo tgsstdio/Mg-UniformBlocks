@@ -9,8 +9,8 @@ namespace UniBlocks.UnitTests
         [Test]
         public void Test0()
         {
-            var tokenizer = new BlockTokenizer();
-            var token = tokenizer.Extract("CAMERA[0]");
+            var tokenizer = new GLUniformBlockNameParser();
+            var token = tokenizer.Parse("CAMERA[0]");
             Assert.IsNotNull(token);
             Assert.AreEqual("CAMERA", token.Prefix);
             Assert.AreEqual(0, token.X);
@@ -21,8 +21,8 @@ namespace UniBlocks.UnitTests
         [Test]
         public void Test1()
         {
-            var tokenizer = new BlockTokenizer();
-            var token = tokenizer.Extract("UBO[0]");
+            var tokenizer = new GLUniformBlockNameParser();
+            var token = tokenizer.Parse("UBO[0]");
             Assert.IsNotNull(token);
             Assert.AreEqual("UBO", token.Prefix);
             Assert.AreEqual(0, token.X);
@@ -33,8 +33,8 @@ namespace UniBlocks.UnitTests
         [Test]
         public void Test2()
         {
-            var tokenizer = new BlockTokenizer();
-            var token = tokenizer.Extract("UBO[1]");
+            var tokenizer = new GLUniformBlockNameParser();
+            var token = tokenizer.Parse("UBO[1]");
             Assert.IsNotNull(token);
             Assert.AreEqual("UBO", token.Prefix);
             Assert.AreEqual(1, token.X);
@@ -45,8 +45,8 @@ namespace UniBlocks.UnitTests
         [Test]
         public void Test3()
         {
-            var tokenizer = new BlockTokenizer();
-            var token = tokenizer.Extract("UBO[1][4]");
+            var tokenizer = new GLUniformBlockNameParser();
+            var token = tokenizer.Parse("UBO[1][4]");
             Assert.IsNotNull(token);
             Assert.AreEqual("UBO", token.Prefix);
             Assert.AreEqual(1, token.X);
@@ -57,8 +57,8 @@ namespace UniBlocks.UnitTests
         [Test]
         public void Test4()
         {
-            var tokenizer = new BlockTokenizer();
-            var token = tokenizer.Extract("UBO[1][4]");
+            var tokenizer = new GLUniformBlockNameParser();
+            var token = tokenizer.Parse("UBO[1][4]");
             Assert.IsNotNull(token);
             Assert.AreEqual("UBO", token.Prefix);
             Assert.AreEqual(1, token.X);
@@ -69,8 +69,8 @@ namespace UniBlocks.UnitTests
         [Test]
         public void Test5()
         {
-            var tokenizer = new BlockTokenizer();
-            var token = tokenizer.Extract("CAMERA[10][1][2]");
+            var tokenizer = new GLUniformBlockNameParser();
+            var token = tokenizer.Parse("CAMERA[10][1][2]");
             Assert.IsNotNull(token);
             Assert.AreEqual("CAMERA", token.Prefix);
             Assert.AreEqual(10, token.X);

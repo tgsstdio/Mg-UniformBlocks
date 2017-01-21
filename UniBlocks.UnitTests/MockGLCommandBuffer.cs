@@ -25,13 +25,16 @@ namespace UniBlocks.Tests
             throw new NotImplementedException();
         }
 
+		private IGLDescriptorSetBinder mBinder;
         public void CmdBindDescriptorSets(MgPipelineBindPoint pipelineBindPoint, IMgPipelineLayout layout, uint firstSet, uint descriptorSetCount, IMgDescriptorSet[] pDescriptorSets, uint[] pDynamicOffsets)
         {
+			mBinder.Bind(pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, pDynamicOffsets);
+
             var firstOffset = 0;
 
             var map = new Dictionary<int, GLUniformMapEntry> ();
             var bLayout = (IGLPipelineLayout) layout;
-
+SS
             //foreach(var binding in bLayout.Bindings)
             //{
             //    var mapEntry = new GLUniformMapEntry();

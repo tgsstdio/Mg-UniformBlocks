@@ -19,8 +19,8 @@ namespace Magnesium.OpenGL
 			// build flat slots array for uniforms 
 			foreach (var desc in layout.Bindings)
 			{
-				if (desc.DescriptorType == Magnesium.MgDescriptorType.UNIFORM_BUFFER
-					|| desc.DescriptorType == Magnesium.MgDescriptorType.UNIFORM_BUFFER_DYNAMIC)
+				if (desc.DescriptorType == MgDescriptorType.UNIFORM_BUFFER
+					|| desc.DescriptorType == MgDescriptorType.UNIFORM_BUFFER_DYNAMIC)
 				{
 					count += desc.DescriptorCount;
 					Offsets.Add(desc.Binding,
@@ -28,7 +28,7 @@ namespace Magnesium.OpenGL
 						   {
 							   Binding = desc.Binding,
 							   First = 0U,
-							   Last = desc.DescriptorCount - 1,
+							   Last = desc.DescriptorCount - 1
 						   });
 				}
 			}

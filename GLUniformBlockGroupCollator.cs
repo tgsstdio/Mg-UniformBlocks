@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace Magnesium.OpenGL
 {
-	public class UniformBlockGroupCollator
+	public class GLUniformBlockGroupCollator
 	{
-		Dictionary<string, UniformBlockGroup> mGroups;
+		readonly Dictionary<string, GLUniformBlockGroupInfo> mGroups;
 
-		public UniformBlockGroupCollator()
+		public GLUniformBlockGroupCollator()
 		{
-			mGroups = new Dictionary<string, UniformBlockGroup>();
+			mGroups = new Dictionary<string, GLUniformBlockGroupInfo>();
 		}
-		public void Add(UniformBlockInfo entry)
+		public void Add(GLUniformBlockInfo entry)
 		{
-			UniformBlockGroup found;
+			GLUniformBlockGroupInfo found;
 			if (mGroups.TryGetValue(entry.Prefix, out found))
 			{
 				if (entry.X == 0 && entry.Y == 0 && entry.Z == 0)
@@ -28,7 +28,7 @@ namespace Magnesium.OpenGL
 			}
 			else
 			{
-				found = new UniformBlockGroup
+				found = new GLUniformBlockGroupInfo
 				{
 					Prefix = entry.Prefix,
 					BindingIndex = entry.BindingIndex,
@@ -41,9 +41,9 @@ namespace Magnesium.OpenGL
 			}
 		}
 
-		public SortedDictionary<uint, UniformBlockGroup> Collate()
+		public SortedDictionary<uint, GLUniformBlockGroupInfo> Collate()
 		{
-			var sortedResults = new SortedDictionary<uint, UniformBlockGroup>();
+			var sortedResults = new SortedDictionary<uint, GLUniformBlockGroupInfo>();
 			foreach (var blockGroup in mGroups.Values)
 			{
 				blockGroup.MatrixStride = (blockGroup.ArrayStride * Math.Max(blockGroup.HighestRow, 1));

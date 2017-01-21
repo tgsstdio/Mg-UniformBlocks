@@ -1,50 +1,11 @@
 ﻿<Properties StartupConfiguration="{39541B69-FFC8-4484-91CF-6BB9262C5627}|Unit Tests">
-  <MonoDevelop.Ide.Workbench ActiveDocument="GLInternalCache.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GLSampler.cs">
     <Files>
-      <File FileName="UniBlocks.UnitTests/CollatorTest.cs" Line="13" Column="36" />
-      <File FileName="GLDescriptorSet.cs" Line="1" Column="1" />
-      <File FileName="GLDevice.cs" Line="240" Column="1" />
-      <File FileName="GLDescriptorBinding.cs" Line="55" Column="17" />
-      <File FileName="GLBufferDescriptor.cs" Line="10" Column="3" />
-      <File FileName="GLDescriptorSetUpdator.cs" Line="101" Column="46" />
-      <File FileName="IGLBuffer.cs" Line="5" Column="23" />
-      <File FileName="IGLDescriptorSetUpdator.cs" Line="5" Column="26" />
-      <File FileName="UniformBlockGroup.cs" Line="9" Column="3" />
-      <File FileName="UniformBlockInfo.cs" Line="5" Column="17" />
-      <File FileName="IGLUniformBlockEntrypoint.cs" Line="11" Column="1" />
-      <File FileName="UniBlocks.UnitTests/BuildPointDirectoryTest.cs" Line="112" Column="19" />
-      <File FileName="UniBlocks.UnitTests/MockGLCommandBuffer.cs" Line="34" Column="1" />
-      <File FileName="UniBlocks.UnitTests/GLUniformMapEntry.cs" Line="1" Column="1" />
-      <File FileName="GLBufferBindingPointDirectory.cs" Line="15" Column="4" />
-      <File FileName="UniBlocks.UnitTests/BlockTokenizerTest.cs" Line="7" Column="36" />
-      <File FileName="UniBlocks.UnitTests/BuildParameterTest.cs" Line="16" Column="33" />
-      <File FileName="UniBlocks.UnitTests/MockGLPipelineLayout.cs" Line="10" Column="4" />
-      <File FileName="GLInternalCache.cs" Line="56" Column="7" />
-      <File FileName="GLDescriptorBindingGroup.cs" Line="1" Column="1" />
-      <File FileName="GLUniformBindingPointLayout.cs" Line="44" Column="30" />
-      <File FileName="GLBindingPointOffsetInfo.cs" Line="4" Column="15" />
-      <File FileName="IGLLayoutEntrypoint.cs" Line="1" Column="1" />
-      <File FileName="GLUniformBlockEntry.cs" Line="8" Column="23" />
-      <File FileName="UniformBlockGroupCollator.cs" Line="53" Column="1" />
+      <File FileName="GLDescriptorSetLayout.cs" Line="1" Column="34" />
+      <File FileName="GLDescriptorSetUpdator.cs" Line="6" Column="3" />
+      <File FileName="GLUniformBindingPointLayout.cs" Line="31" Column="42" />
+      <File FileName="GLSampler.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="UniBlocks" expanded="True">
-            <Node name="UniBlocks.UnitTests" expanded="True">
-              <Node name="UniBlocks" expanded="True">
-                <Node name="UnitTests" expanded="True">
-                  <Node name="BuildPointDirectoryTest" expanded="True" />
-                  <Node name="CollatorTest" expanded="True">
-                    <Node name="RowOffset2" selected="True" />
-                  </Node>
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

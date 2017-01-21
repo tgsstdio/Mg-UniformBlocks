@@ -1,76 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Magnesium.OpenGL
 {
 	public class GLInternalCache
 	{
-		public class GLInternalBlockBinding
-		{
-			public int ActiveIndex { get; set; }
-			public int BindingPoint { get; set; }
-		}
-
-		public GLInternalBlockBinding[] BlockBindings { get; private set;}
-		public GLInternalCache(int programId,
-		                       IGLPipelineLayout pipelineLayout, 
-		                       IGLUniformBlockEntrypoint uniforms,
-		                       IBlockTokenizer tokenizer)
+		public int[] Strides { get; set; }
+		public GLInternalCacheBlockBinding[] BlockBindings { get; private set; }
+		private GLInternalCacheArrayMapper mMapLocator;
+		public GLInternalCache(
+			//int programId,
+			// IGLPipelineLayout pipelineLayout,
+			GLUniformBindingPointLayout bindingPointLayout,
+							   ///IGLUniformBlockEntrypoint uniforms,
+							GLUniformBlockEntry[] blockEntries,
+							   GLInternalCacheArrayMapper arrayLocator
+								// IBlockTokenizer tokenizer
+								)
 		{
 			// SETUP UNIFORMS
-			var entries = SetupUniformBlocks(programId, uniforms, tokenizer);
+			//var entries = SetupUniformBlocks(programId, uniforms, tokenizer);
 
-			var layout = new GLUniformBindingPointLayout(pipelineLayout);
+			//var layout = new GLUniformBindingPointLayout(pipelineLayout);
 
-			var collator = new UniformBlockGroupCollator();
-			foreach (var entry in entries)
+			//mMapLocator = new GLInternalCacheArrayMapper(layout, groups);
+			mMapLocator = arrayLocator;
+			SetupBlockBindings(blockEntries, mMapLocator);
+			SetupStrides(blockEntries, bindingPointLayout, mMapLocator);
+		}
+
+		void SetupStrides(GLUniformBlockEntry[] blockEntries, GLUniformBindingPointLayout layout, GLInternalCacheArrayMapper locator)
+		{
+			Strides = new int[layout.NoOfBindingPoints];
+			for (var i = 0; i < layout.NoOfBindingPoints; i += 1)
 			{
-				collator.Add(entry.Token);
+				Strides[i] = 0;
 			}
 
-			var groups = collator.Collate();
-
-			BlockBindings = new GLInternalBlockBinding[entries.Count];
-			var i = 0;
-			foreach (var entry in entries)
+			foreach (var entry in blockEntries)
 			{
-				BlockBindings[i] = new GLInternalBlockBinding
-				{
-					ActiveIndex = entry.ActiveIndex,
-				};
-
-				UniformBlockGroup mapGroup;
-				if (groups.TryGetValue(entry.Token.BindingIndex, out mapGroup))
-				{
-					// ROW-ORDER 
-					var xOffset = entry.Token.X;
-					var yOffset = mapGroup.ArrayStride * entry.Token.Y;
-					var zOffset = mapGroup.MatrixStride * entry.Token.Z;
-
-					GLBindingPointOffsetInfo bindingOffset;
-					if (layout.Offsets.TryGetValue(entry.Token.BindingIndex, out bindingOffset))
-					{
-						var offset = bindingOffset.First;
-
-						//BlockBindings[i].BindingPoint = x;
-					}
-				}
-
-
-
-				i += 1;
+				var arrayIndex = locator.CalculateArrayIndex(entry);
+				Strides[arrayIndex] = entry.Stride;
 			}
 		}
 
-		private List<GLUniformBlockEntry> SetupUniformBlocks(int programId, IGLUniformBlockEntrypoint uniforms, IBlockTokenizer tokenizer)
+		private GLUniformBlockEntry[] SetupUniformBlocks(int programId, IGLUniformBlockEntrypoint uniforms, IGLUniformBlockNameParser tokenizer)
 		{
 			var count = uniforms.GetNoOfActiveUniformBlocks(programId);
 			var entries = new List<GLUniformBlockEntry>();
-			for (var i = 0; i < count; i += 1)
+			for (uint i = 0; i < count; i += 1)
 			{
 				string blockName = uniforms.GetActiveUniformBlockName(programId, i);
-				var token = tokenizer.Extract(blockName);
-				var blockInfo = uniforms.GetActiveUniformBlockData(programId, i);
+				var token = tokenizer.Parse(blockName);
+				var blockInfo = uniforms.GetActiveUniformBlockInfo(programId, i);
+				token.BindingIndex = blockInfo.BindingIndex;
 
 				var entry = new GLUniformBlockEntry
 				{
@@ -81,7 +63,23 @@ namespace Magnesium.OpenGL
 				};
 				entries.Add(entry);
 			}
-			return entries;
+			return entries.ToArray();
 		}
+
+		void SetupBlockBindings(GLUniformBlockEntry[] entries, GLInternalCacheArrayMapper locator)
+		{
+			BlockBindings = new GLInternalCacheBlockBinding[entries.Length];
+			for (var i = 0; i < entries.Length; i += 1)
+			{
+				var entry = entries[i];
+				BlockBindings[i] = new GLInternalCacheBlockBinding
+				{
+					BlockName = entry.BlockName,
+					ActiveIndex = entry.ActiveIndex,
+					BindingPoint = locator.CalculateArrayIndex(entry),
+				};
+			}
+		}
+
 	}
 }

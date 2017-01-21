@@ -10,12 +10,12 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void TestCase()
 		{
-			IBlockTokenizer tokenizer = new BlockTokenizer();
-			var token0 = tokenizer.Extract("UBO[0]");
+			IGLUniformBlockNameParser tokenizer = new GLUniformBlockNameParser();
+			var token0 = tokenizer.Parse("UBO[0]");
 			token0.BindingIndex = 10;
-			var collator = new UniformBlockGroupCollator();
+			var collator = new GLUniformBlockGroupCollator();
 			collator.Add(token0);
-			var token1 = tokenizer.Extract("UBO[1]");
+			var token1 = tokenizer.Parse("UBO[1]");
 			token1.BindingIndex = 10;
 			collator.Add(token1);
 
@@ -29,7 +29,7 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void TestCase2()
 		{
-			var token0 = new UniformBlockInfo
+			var token0 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -37,9 +37,9 @@ namespace UniBlocks.UnitTests
 				Y = 0,
 				Z = 0,
 			};
-			var collator = new UniformBlockGroupCollator();
+			var collator = new GLUniformBlockGroupCollator();
 			collator.Add(token0);
-			var token1 = new UniformBlockInfo
+			var token1 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 15,
@@ -60,7 +60,7 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void TestCase3()
 		{
-			var token0 = new UniformBlockInfo
+			var token0 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -68,9 +68,9 @@ namespace UniBlocks.UnitTests
 				Y = 0,
 				Z = 0,
 			};
-			var collator = new UniformBlockGroupCollator();
+			var collator = new GLUniformBlockGroupCollator();
 			collator.Add(token0);
-			var token1 = new UniformBlockInfo
+			var token1 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "ubo",
 				BindingIndex = 15,
@@ -103,7 +103,7 @@ namespace UniBlocks.UnitTests
 		public void GroupsSorted1()
 		{
 			// SHOULD BE SORTED BY BINDING INDEX OF FIRST ELEMENT
-			var token0 = new UniformBlockInfo
+			var token0 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "C",
 				BindingIndex = 10,
@@ -111,9 +111,9 @@ namespace UniBlocks.UnitTests
 				Y = 0,
 				Z = 0,
 			};
-			var collator = new UniformBlockGroupCollator();
+			var collator = new GLUniformBlockGroupCollator();
 			collator.Add(token0);
-			var token1 = new UniformBlockInfo
+			var token1 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "A",
 				BindingIndex = 12,
@@ -123,7 +123,7 @@ namespace UniBlocks.UnitTests
 			};
 			collator.Add(token1);
 
-			var token2 = new UniformBlockInfo
+			var token2 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "B",
 				BindingIndex = 11,
@@ -162,7 +162,7 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void RowOffset0()
 		{
-			var token0 = new UniformBlockInfo
+			var token0 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -170,9 +170,9 @@ namespace UniBlocks.UnitTests
 				Y = 0,
 				Z = 0,
 			};
-			var collator = new UniformBlockGroupCollator();
+			var collator = new GLUniformBlockGroupCollator();
 			collator.Add(token0);
-			var token1 = new UniformBlockInfo
+			var token1 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -200,7 +200,7 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void RowOffset1()
 		{
-			var token0 = new UniformBlockInfo
+			var token0 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -208,9 +208,9 @@ namespace UniBlocks.UnitTests
 				Y = 0,
 				Z = 0,
 			};
-			var collator = new UniformBlockGroupCollator();
+			var collator = new GLUniformBlockGroupCollator();
 			collator.Add(token0);
-			var token1 = new UniformBlockInfo
+			var token1 = new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -239,8 +239,8 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void RowOffset2()
 		{
-			var collator = new UniformBlockGroupCollator();
-			collator.Add(new UniformBlockInfo
+			var collator = new GLUniformBlockGroupCollator();
+			collator.Add(new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -249,7 +249,7 @@ namespace UniBlocks.UnitTests
 				Z = 0,
 			});
 
-			collator.Add(new UniformBlockInfo
+			collator.Add(new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -258,7 +258,7 @@ namespace UniBlocks.UnitTests
 				Z = 0,
 			});
 
-			collator.Add(new UniformBlockInfo
+			collator.Add(new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -285,8 +285,8 @@ namespace UniBlocks.UnitTests
 		public void RowOffset3()
 		{
 			// TODO : row major or column major
-			var collator = new UniformBlockGroupCollator();
-			collator.Add(new UniformBlockInfo
+			var collator = new GLUniformBlockGroupCollator();
+			collator.Add(new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -295,7 +295,7 @@ namespace UniBlocks.UnitTests
 				Z = 0,
 			});
 	
-			collator.Add(new UniformBlockInfo
+			collator.Add(new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -304,7 +304,7 @@ namespace UniBlocks.UnitTests
 				Z = 0,
 			});
 
-			collator.Add(new UniformBlockInfo
+			collator.Add(new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,
@@ -331,8 +331,8 @@ namespace UniBlocks.UnitTests
 		[Test]
 		public void RowOffset4()
 		{
-			var collator = new UniformBlockGroupCollator();
-			collator.Add(new UniformBlockInfo
+			var collator = new GLUniformBlockGroupCollator();
+			collator.Add(new GLActiveUniformBlockInfo
 			{
 				Prefix = "UBO",
 				BindingIndex = 10,

@@ -1,5 +1,4 @@
-﻿using System;
-namespace Magnesium.OpenGL
+﻿namespace Magnesium.OpenGL
 {
 	public class GLBindingPointOffsetInfo
 	{

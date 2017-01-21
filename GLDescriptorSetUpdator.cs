@@ -22,8 +22,8 @@ namespace Magnesium.OpenGL
 						throw new NotSupportedException();
 					}
 
-					int offset = (int)desc.DstArrayElement;
-					int count = (int)desc.DescriptorCount;
+					var offset = (int)desc.DstArrayElement;
+					var count = (int)desc.DescriptorCount;
 
 					//var lastIndex = localSet.Bindings.Length - 1;
 					//var right = offset + count - 1;
