@@ -43,29 +43,6 @@ namespace Magnesium.OpenGL
 			}
 		}
 
-		private GLUniformBlockEntry[] SetupUniformBlocks(int programId, IGLUniformBlockEntrypoint uniforms, IGLUniformBlockNameParser tokenizer)
-		{
-			var count = uniforms.GetNoOfActiveUniformBlocks(programId);
-			var entries = new List<GLUniformBlockEntry>();
-			for (uint i = 0; i < count; i += 1)
-			{
-				string blockName = uniforms.GetActiveUniformBlockName(programId, i);
-				var token = tokenizer.Parse(blockName);
-				var blockInfo = uniforms.GetActiveUniformBlockInfo(programId, i);
-				token.BindingIndex = blockInfo.BindingIndex;
-
-				var entry = new GLUniformBlockEntry
-				{
-					BlockName = blockName,
-					ActiveIndex = i,
-					Stride = blockInfo.Stride,
-					Token = token,
-				};
-				entries.Add(entry);
-			}
-			return entries.ToArray();
-		}
-
 		void SetupBlockBindings(GLUniformBlockEntry[] entries, GLInternalCacheArrayMapper locator)
 		{
 			BlockBindings = new GLInternalCacheBlockBinding[entries.Length];

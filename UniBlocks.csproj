@@ -74,6 +74,9 @@
     <Compile Include="GLInternalCacheBlockBinding.cs" />
     <Compile Include="GLInternalCacheArrayMapper.cs" />
     <Compile Include="IGLDescriptorSetBinder.cs" />
+    <Compile Include="GLSLProgramInspector.cs" />
+    <Compile Include="IGLSLProgramInspector.cs" />
+    <Compile Include="GLDescriptorSetBinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magnesium, Version=5.0.4.30756, Culture=neutral, processorArchitecture=MSIL">
