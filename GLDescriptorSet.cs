@@ -78,6 +78,9 @@ namespace Magnesium.OpenGL
 
 		public bool Equals (IGLDescriptorSet other)
 		{
+			if (other == null)
+				return false;
+			
 			return Key == other.Key;
 		}
 

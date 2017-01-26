@@ -41,6 +41,7 @@
     <Compile Include="MockGLPipelineLayout.cs" />
     <Compile Include="BuildPointDirectoryTest.cs" />
     <Compile Include="BuildParameterTest.cs" />
+    <Compile Include="MockGLDescriptorSetLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

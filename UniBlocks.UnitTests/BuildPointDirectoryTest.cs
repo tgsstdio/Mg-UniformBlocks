@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Magnesium;
 using Magnesium.OpenGL;
 using NUnit.Framework;
 
@@ -11,13 +12,22 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void BuildStructure0()
 		{
-			IGLPipelineLayout mock = new MockGLPipelineLayout
+			var mock = new MockGLDescriptorSetLayout
 			{
-				Bindings = new GLUniformBinding[]
+				Uniforms = new GLUniformBinding[]
 				{
+
 				}
 			};
-			var result = new GLUniformBindingPointLayout(mock);
+
+			var createInfo = new MgPipelineLayoutCreateInfo
+			{
+				SetLayouts = new IMgDescriptorSetLayout[]
+				{
+					mock
+				},
+			};
+			var result = new GLPipelineLayout(createInfo);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(0, result.NoOfBindingPoints);
 		}
@@ -25,9 +35,9 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void BuildStructure1()
 		{
-			IGLPipelineLayout mock = new MockGLPipelineLayout
+			var mock = new MockGLDescriptorSetLayout
 			{
-				Bindings = new GLUniformBinding[]
+				Uniforms = new GLUniformBinding[]
 				{
 					new GLUniformBinding
 					{
@@ -37,7 +47,17 @@ namespace UniBlocks.UnitTests
 					}
 				}
 			};
-			var result = new GLUniformBindingPointLayout(mock);
+
+			var createInfo = new MgPipelineLayoutCreateInfo
+			{
+				SetLayouts = new IMgDescriptorSetLayout[]
+				{
+					mock
+				},
+			};
+
+			var result = new GLPipelineLayout(createInfo);
+
 			Assert.IsNotNull(result);
 			Assert.AreEqual(10, result.NoOfBindingPoints);
 		}
@@ -45,9 +65,9 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void BuildStructure2()
 		{
-			IGLPipelineLayout mock = new MockGLPipelineLayout
+			var mock = new MockGLDescriptorSetLayout
 			{
-				Bindings = new GLUniformBinding[]
+				Uniforms = new GLUniformBinding[]
 				{
 					new GLUniformBinding
 					{
@@ -63,7 +83,16 @@ namespace UniBlocks.UnitTests
 					},
 				}
 			};
-			var result = new GLUniformBindingPointLayout(mock);
+
+			var createInfo = new MgPipelineLayoutCreateInfo
+			{
+				SetLayouts = new IMgDescriptorSetLayout[]
+				{
+					mock
+				},
+			};
+
+			var result = new GLPipelineLayout(createInfo);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(3, result.NoOfBindingPoints);
 		}
@@ -71,9 +100,9 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void BuildStructure3()
 		{
-			IGLPipelineLayout mock = new MockGLPipelineLayout
+			var mock = new MockGLDescriptorSetLayout
 			{
-				Bindings = new GLUniformBinding[]
+				Uniforms = new GLUniformBinding[]
 				{
 					new GLUniformBinding
 					{
@@ -89,7 +118,16 @@ namespace UniBlocks.UnitTests
 					},
 				}
 			};
-			var result = new GLUniformBindingPointLayout(mock);
+
+			var createInfo = new MgPipelineLayoutCreateInfo
+			{
+				SetLayouts = new IMgDescriptorSetLayout[]
+				{
+					mock
+				},
+			};
+
+			var result = new GLPipelineLayout(createInfo);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(3, result.NoOfBindingPoints);
 		}
@@ -97,9 +135,9 @@ namespace UniBlocks.UnitTests
 		[Test()]
 		public void BuildStructure4()
 		{
-			IGLPipelineLayout mock = new MockGLPipelineLayout
+			var mock = new MockGLDescriptorSetLayout
 			{
-				Bindings = new GLUniformBinding[]
+				Uniforms = new GLUniformBinding[]
 				{
 					new GLUniformBinding
 					{
@@ -115,20 +153,30 @@ namespace UniBlocks.UnitTests
 					},
 				}
 			};
-			var result = new GLUniformBindingPointLayout(mock);
+
+			var createInfo = new MgPipelineLayoutCreateInfo
+			{
+				SetLayouts = new IMgDescriptorSetLayout[]
+				{
+					mock
+				},
+			};
+
+			var result = new GLPipelineLayout(createInfo);
+
 			Assert.IsNotNull(result);
 			Assert.AreEqual(3, result.NoOfBindingPoints);
-			Assert.AreEqual(2, result.Offsets.Keys.Count);
+			Assert.AreEqual(2, result.Ranges.Keys.Count);
 
 			{
-				var g1 = result.Offsets[0];
+				var g1 = result.Ranges[0];
 				Assert.AreEqual(0, g1.Binding);
 				Assert.AreEqual(0, g1.First);
 				Assert.AreEqual(0, g1.Last);
 			}
 
 			{
-				var g1 = result.Offsets[1];
+				var g1 = result.Ranges[1];
 				Assert.AreEqual(1, g1.Binding);
 				Assert.AreEqual(1, g1.First);
 				Assert.AreEqual(2, g1.Last);

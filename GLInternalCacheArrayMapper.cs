@@ -4,10 +4,10 @@ namespace Magnesium.OpenGL
 {
 	public class GLInternalCacheArrayMapper
 	{
-		private readonly GLUniformBindingPointLayout mLayout;
+		private readonly IGLPipelineLayout mLayout;
 		private readonly SortedDictionary<uint, GLUniformBlockGroupInfo> mGroups;
 
-		public GLInternalCacheArrayMapper(GLUniformBindingPointLayout layout, GLUniformBlockEntry[] blockEntries)
+		public GLInternalCacheArrayMapper(IGLPipelineLayout layout, GLUniformBlockEntry[] blockEntries)
 		{
 			mLayout = layout;
 
@@ -32,7 +32,7 @@ namespace Magnesium.OpenGL
 			bindingPoint += (mapGroup.ArrayStride * entry.Token.Y);
 			bindingPoint += (mapGroup.MatrixStride * entry.Token.Z);
 
-			var arrayOffset = mLayout.Offsets[entry.Token.BindingIndex];
+			var arrayOffset = mLayout.Ranges[entry.Token.BindingIndex];
 			bindingPoint += arrayOffset.First;
 			return bindingPoint;
 		}

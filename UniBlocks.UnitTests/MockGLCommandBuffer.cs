@@ -29,49 +29,6 @@ namespace UniBlocks.Tests
         public void CmdBindDescriptorSets(MgPipelineBindPoint pipelineBindPoint, IMgPipelineLayout layout, uint firstSet, uint descriptorSetCount, IMgDescriptorSet[] pDescriptorSets, uint[] pDynamicOffsets)
         {
 			mBinder.Bind(pipelineBindPoint, layout, firstSet, descriptorSetCount, pDescriptorSets, pDynamicOffsets);
-
-            var firstOffset = 0;
-
-            var map = new Dictionary<int, GLUniformMapEntry> ();
-            var bLayout = (IGLPipelineLayout) layout;
-SS
-            //foreach(var binding in bLayout.Bindings)
-            //{
-            //    var mapEntry = new GLUniformMapEntry();
-            //    mapEntry.Binding = binding.Binding;
-            //    mapEntry.DescriptorCount = binding.DescriptorCount;
-            //    mapEntry.DescriptorType = binding.DescriptorType;
-            //    if (
-            //        binding.DescriptorType == MgDescriptorType.STORAGE_BUFFER_DYNAMIC 
-            //        || binding.DescriptorType == MgDescriptorType.UNIFORM_BUFFER_DYNAMIC)
-            //    {
-            //        mapEntry.IsDynamicBuffer = true;
-            //        // FOR EVERY BOUND DYNAMIC ARRAY ITEM 
-            //        mapEntry.DynamicOffset = pDynamicOffsets[firstOffset];
-            //        firstOffset += 1;
-            //    }
-            //    map.Add(mapEntry.Binding, mapEntry);
-            //}
-
-			foreach (var setArrayItem in pDescriptorSets)
-            {
-                var bSet = (IGLDescriptorSet)setArrayItem;
-				//bSet.TryGetValue();
-                //{
-                //    if (binding.Group == GLDescriptorBindingGroup.Buffer)
-                //    {
-                //        var bufferDesc = binding.Buffers;
-                //        if (bufferDesc.IsDynamic)
-                //        {
-                            
-                //        }
-                //        bufferDesc.BufferId;
-
-                //    }
-                //}
-            }
-
-            map.ToArray();
         }
 
         public void CmdBindIndexBuffer(IMgBuffer buffer, ulong offset, MgIndexType indexType)

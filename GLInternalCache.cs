@@ -10,7 +10,7 @@ namespace Magnesium.OpenGL
 		public GLInternalCache(
 			//int programId,
 			// IGLPipelineLayout pipelineLayout,
-			GLUniformBindingPointLayout bindingPointLayout,
+			IGLPipelineLayout pipelineLayout,
 							   ///IGLUniformBlockEntrypoint uniforms,
 							GLUniformBlockEntry[] blockEntries,
 							   GLInternalCacheArrayMapper arrayLocator
@@ -25,10 +25,10 @@ namespace Magnesium.OpenGL
 			//mMapLocator = new GLInternalCacheArrayMapper(layout, groups);
 			mMapLocator = arrayLocator;
 			SetupBlockBindings(blockEntries, mMapLocator);
-			SetupStrides(blockEntries, bindingPointLayout, mMapLocator);
+			SetupStrides(blockEntries, pipelineLayout, mMapLocator);
 		}
 
-		void SetupStrides(GLUniformBlockEntry[] blockEntries, GLUniformBindingPointLayout layout, GLInternalCacheArrayMapper locator)
+		void SetupStrides(GLUniformBlockEntry[] blockEntries, IGLPipelineLayout layout, GLInternalCacheArrayMapper locator)
 		{
 			Strides = new int[layout.NoOfBindingPoints];
 			for (var i = 0; i < layout.NoOfBindingPoints; i += 1)
