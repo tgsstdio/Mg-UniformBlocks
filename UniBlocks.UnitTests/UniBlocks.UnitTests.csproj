@@ -42,6 +42,13 @@
     <Compile Include="BuildPointDirectoryTest.cs" />
     <Compile Include="BuildParameterTest.cs" />
     <Compile Include="MockGLDescriptorSetLayout.cs" />
+    <Compile Include="ArrayPoolTests.cs" />
+    <Compile Include="GLPoolResourceInfo.cs" />
+    <Compile Include="IGLDescriptorPoolResource.cs" />
+    <Compile Include="AllocatePoolResourceTests.cs" />
+    <Compile Include="GLPoolResource.cs" />
+    <Compile Include="IGLDescriptorSetResource.cs" />
+    <Compile Include="GLBufferResource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
