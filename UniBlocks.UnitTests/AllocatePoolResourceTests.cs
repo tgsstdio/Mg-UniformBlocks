@@ -1,4 +1,5 @@
 ﻿using System;
+using Magnesium.OpenGL;
 using NUnit.Framework;
 
 namespace UniBlocks.UnitTests
@@ -7,12 +8,12 @@ namespace UniBlocks.UnitTests
 	public class AllocatePoolResourceTests
 	{
 		const int NO_OF_ITEMS = 3;
-		internal GLPoolResource<GLBufferResource> PoolResource { get; private set; }
+		internal GLPoolResource<MockGLStaticBufferResource> PoolResource { get; private set; }
 
 		[SetUp]
 		public void Setup()
 		{
-			PoolResource = new GLPoolResource<GLBufferResource>(NO_OF_ITEMS);
+			PoolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS);
 		}
 
 		[TearDown]

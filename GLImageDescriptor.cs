@@ -1,29 +1,33 @@
-﻿namespace Magnesium.OpenGL
+﻿using System;
+
+namespace Magnesium.OpenGL
 {
-	public class GLImageDescriptor
+	public class GLImageDescriptor : IGLDescriptorSetResource
 	{
-		readonly IGLImageDescriptorEntrypoint mImgDescriptor;		
-		public GLImageDescriptor (IGLImageDescriptorEntrypoint imgDescriptor)
-		{
-			mImgDescriptor = imgDescriptor;	
-		}
+		public IGLImageDescriptorEntrypoint Entrypoint { get; internal set; }
 
 		public ulong? SamplerHandle { get; set; }
 
-		public void Replace (ulong handle)
+		public void Replace(ulong handle)
 		{
-			Destroy ();
+			Destroy();
 			SamplerHandle = handle;
 		}
 
-		public void Destroy ()
+		public void Destroy()
 		{
 			if (SamplerHandle.HasValue)
 			{
-				mImgDescriptor.ReleaseHandle (SamplerHandle.Value);
+				Entrypoint.ReleaseHandle(SamplerHandle.Value);
 				SamplerHandle = null;
 			}
 		}
-	}
+
+		public void Reset()
+		{
+			Destroy();
+		}
+	}	
 }
+
 

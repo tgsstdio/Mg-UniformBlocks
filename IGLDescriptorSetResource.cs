@@ -1,5 +1,5 @@
 ﻿using System;
-namespace UniBlocks.UnitTests
+namespace Magnesium.OpenGL
 {
 	public interface IGLDescriptorSetResource
 	{

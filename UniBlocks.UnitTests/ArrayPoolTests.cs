@@ -1,4 +1,5 @@
 ﻿using System;
+using Magnesium.OpenGL;
 using NUnit.Framework;
 
 namespace UniBlocks.UnitTests
@@ -10,7 +11,7 @@ namespace UniBlocks.UnitTests
 		public void ConstructorTest0()
 		{
 			const uint NO_OF_ITEMS = 6;
-			var poolResource = new GLPoolResource<GLBufferResource>(NO_OF_ITEMS);
+			var poolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS);
 
 			Assert.IsNotNull(poolResource.Items);
 			Assert.AreEqual(NO_OF_ITEMS, poolResource.Items.Length);
@@ -28,7 +29,7 @@ namespace UniBlocks.UnitTests
 		public void ConstructorTest1()
 		{
 			const uint NO_OF_ITEMS = 0;
-			var poolResource = new GLPoolResource<GLBufferResource>(NO_OF_ITEMS);
+			var poolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS);
 		}
 	}
 }

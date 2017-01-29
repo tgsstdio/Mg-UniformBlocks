@@ -47,8 +47,11 @@
     <Compile Include="IGLDescriptorPoolResource.cs" />
     <Compile Include="AllocatePoolResourceTests.cs" />
     <Compile Include="GLPoolResource.cs" />
-    <Compile Include="IGLDescriptorSetResource.cs" />
-    <Compile Include="GLBufferResource.cs" />
+    <Compile Include="MockGLStaticBufferResource.cs" />
+    <Compile Include="FreePoolResourcesTest.cs" />
+    <Compile Include="GLNextDescriptorSet.cs" />
+    <Compile Include="GLNextDescriptorPool.cs" />
+    <Compile Include="IGLDescriptorPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

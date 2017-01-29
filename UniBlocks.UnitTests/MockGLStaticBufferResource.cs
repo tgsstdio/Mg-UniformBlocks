@@ -1,7 +1,9 @@
 ﻿using System;
+using Magnesium.OpenGL;
+
 namespace UniBlocks.UnitTests
 {
-	struct GLBufferResource : IGLDescriptorSetResource
+	struct MockGLStaticBufferResource : IGLDescriptorSetResource
 	{
 		public void Reset()
 		{

@@ -1,6 +1,6 @@
-﻿namespace UniBlocks.UnitTests
+﻿namespace Magnesium.OpenGL
 {
-	interface IGLDescriptorPoolResource<T>
+	public interface IGLDescriptorPoolResource<T>
 	{
 		T[] Items { get; }
 		void Reset();
