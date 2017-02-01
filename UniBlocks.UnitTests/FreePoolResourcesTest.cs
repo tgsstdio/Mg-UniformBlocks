@@ -13,7 +13,7 @@ namespace UniBlocks.UnitTests
 		[SetUp]
 		public void Setup()
 		{
-			PoolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS);
+			PoolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS, null);
 		}
 
 		[TearDown]
@@ -22,20 +22,20 @@ namespace UniBlocks.UnitTests
 			PoolResource = null;
 		}
 
-		[TestCase]
-		public void DifferentParent()
-		{
-			GLPoolResourceInfo ticket;
-			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket);
+		//[TestCase]
+		//public void DifferentParent()
+		//{
+		//	GLPoolResourceInfo ticket;
+		//	var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket);
 
-			Assert.IsTrue(initialCheck);
-			Assert.IsNull(PoolResource.Head);
+		//	Assert.IsTrue(initialCheck);
+		//	Assert.IsNull(PoolResource.Head);
 
-			var parent = new GLPoolResource<MockGLStaticBufferResource>(1);
-			var actual = PoolResource.Free(parent, ticket);
-			Assert.IsFalse(actual);
-			Assert.IsNull(PoolResource.Head);
-		}
+		//	var parent = new GLPoolResource<MockGLStaticBufferResource>(1, null);
+		//	var actual = PoolResource.Free(parent, ticket);
+		//	Assert.IsFalse(actual);
+		//	Assert.IsNull(PoolResource.Head);
+		//}
 
 
 		[TestCase]
@@ -48,7 +48,7 @@ namespace UniBlocks.UnitTests
 			Assert.IsNull(PoolResource.Head);
 
 			var parent = PoolResource;
-			var actual = PoolResource.Free(parent, ticket);
+			var actual = PoolResource.Free(ticket);
 
 			Assert.IsTrue(actual);
 			var head = PoolResource.Head;
@@ -67,10 +67,8 @@ namespace UniBlocks.UnitTests
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var parent = PoolResource;
-
 			{
-				var actual = PoolResource.Free(parent, ticket);
+				var actual = PoolResource.Free(ticket);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -81,7 +79,7 @@ namespace UniBlocks.UnitTests
 			}
 
 			{
-				var actual = PoolResource.Free(parent, ticket);
+				var actual = PoolResource.Free(ticket);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -101,10 +99,8 @@ namespace UniBlocks.UnitTests
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var parent = PoolResource;
-
 			{
-				var actual = PoolResource.Free(parent, ticket_0);
+				var actual = PoolResource.Free(ticket_0);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -123,7 +119,7 @@ namespace UniBlocks.UnitTests
 					Count = 2,
 				};
 
-				var actual = PoolResource.Free(parent, ticket_1);
+				var actual = PoolResource.Free(ticket_1);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -145,8 +141,6 @@ namespace UniBlocks.UnitTests
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var parent = PoolResource;
-
 			var ticket_1 = new GLPoolResourceInfo
 			{
 				First = 0,
@@ -155,7 +149,7 @@ namespace UniBlocks.UnitTests
 			};
 
 			{
-				var actual = PoolResource.Free(parent, ticket_1);
+				var actual = PoolResource.Free(ticket_1);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -174,7 +168,7 @@ namespace UniBlocks.UnitTests
 					Count = 4,
 				};
 
-				var actual = PoolResource.Free(parent, ticket_2);
+				var actual = PoolResource.Free(ticket_2);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -196,8 +190,6 @@ namespace UniBlocks.UnitTests
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var parent = PoolResource;
-
 			var ticket_1 = new GLPoolResourceInfo
 			{
 				First = 0,
@@ -206,7 +198,7 @@ namespace UniBlocks.UnitTests
 			};
 
 			{
-				var actual = PoolResource.Free(parent, ticket_1);
+				var actual = PoolResource.Free(ticket_1);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -226,7 +218,7 @@ namespace UniBlocks.UnitTests
 					Count = 2,
 				};
 
-				var actual = PoolResource.Free(parent, ticket_2);
+				var actual = PoolResource.Free(ticket_2);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -252,7 +244,7 @@ namespace UniBlocks.UnitTests
 					Count = 5,
 				};
 
-				var actual = PoolResource.Free(parent, ticket_3);
+				var actual = PoolResource.Free(ticket_3);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -276,8 +268,6 @@ namespace UniBlocks.UnitTests
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var parent = PoolResource;
-
 			var ticket_1 = new GLPoolResourceInfo
 			{
 				First = 0,
@@ -286,7 +276,7 @@ namespace UniBlocks.UnitTests
 			};
 
 			{
-				var actual = PoolResource.Free(parent, ticket_1);
+				var actual = PoolResource.Free(ticket_1);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -306,7 +296,7 @@ namespace UniBlocks.UnitTests
 			};
 
 			{
-				var actual = PoolResource.Free(parent, ticket_2);
+				var actual = PoolResource.Free(ticket_2);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -332,7 +322,7 @@ namespace UniBlocks.UnitTests
 			};
 
 			{
-				var actual = PoolResource.Free(parent, ticket_3);
+				var actual = PoolResource.Free(ticket_3);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -365,7 +355,7 @@ namespace UniBlocks.UnitTests
 					Count = 3,
 				};
 
-				var actual = PoolResource.Free(parent, ticket_4);
+				var actual = PoolResource.Free(ticket_4);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -392,10 +382,8 @@ namespace UniBlocks.UnitTests
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var parent = PoolResource;
-
 			{
-				var actual = PoolResource.Free(parent, ticket);
+				var actual = PoolResource.Free(ticket);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -406,7 +394,7 @@ namespace UniBlocks.UnitTests
 			}
 
 			{
-				var actual = PoolResource.Free(parent, ticket);
+				var actual = PoolResource.Free(ticket);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -417,7 +405,7 @@ namespace UniBlocks.UnitTests
 			}
 		
 			{
-				var actual = PoolResource.Free(parent, ticket);
+				var actual = PoolResource.Free(ticket);
 
 				Assert.IsTrue(actual);
 				var head = PoolResource.Head;
@@ -444,8 +432,7 @@ namespace UniBlocks.UnitTests
 				Count = 1,
 			};
 
-			var parent = PoolResource;
-			var actual_1 = PoolResource.Free(parent, ticket_1);
+			var actual_1 = PoolResource.Free(ticket_1);
 
 			Assert.IsTrue(actual_1);
 			var head = PoolResource.Head;
@@ -463,7 +450,7 @@ namespace UniBlocks.UnitTests
 				Count = 1,
 			};
 
-			var actual_2 = PoolResource.Free(parent, ticket_2);
+			var actual_2 = PoolResource.Free(ticket_2);
 
 			Assert.IsTrue(actual_2);
 			head = PoolResource.Head;
@@ -492,8 +479,7 @@ namespace UniBlocks.UnitTests
 				Count = 1,
 			};
 
-			var parent = PoolResource;
-			var actual_1 = PoolResource.Free(parent, ticket_1);
+			var actual_1 = PoolResource.Free(ticket_1);
 
 			Assert.IsTrue(actual_1);
 			var head = PoolResource.Head;
@@ -511,7 +497,7 @@ namespace UniBlocks.UnitTests
 				Count = 1,
 			};
 
-			var actual_2 = PoolResource.Free(parent, ticket_2);
+			var actual_2 = PoolResource.Free(ticket_2);
 
 			Assert.IsTrue(actual_2);
 			head = PoolResource.Head;
@@ -532,7 +518,6 @@ namespace UniBlocks.UnitTests
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var parent = PoolResource;
 			{
 
 				var ticket_1 = new GLPoolResourceInfo
@@ -542,7 +527,7 @@ namespace UniBlocks.UnitTests
 					Count = 1,
 				};
 
-				var actual_1 = PoolResource.Free(parent, ticket_1);
+				var actual_1 = PoolResource.Free(ticket_1);
 
 				Assert.IsTrue(actual_1);
 				var head = PoolResource.Head;
@@ -562,7 +547,7 @@ namespace UniBlocks.UnitTests
 					Count = 1,
 				};
 
-				var actual_2 = PoolResource.Free(parent, ticket_2);
+				var actual_2 = PoolResource.Free(ticket_2);
 
 				Assert.IsTrue(actual_2);
 				var head = PoolResource.Head;
@@ -584,8 +569,6 @@ namespace UniBlocks.UnitTests
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var parent = PoolResource;
-
 			{
 				var ticket_1 = new GLPoolResourceInfo
 				{
@@ -594,7 +577,7 @@ namespace UniBlocks.UnitTests
 					Count = 1,
 				};
 
-				var actual_1 = PoolResource.Free(parent, ticket_1);
+				var actual_1 = PoolResource.Free(ticket_1);
 
 				Assert.IsTrue(actual_1);
 				var head = PoolResource.Head;
@@ -616,7 +599,7 @@ namespace UniBlocks.UnitTests
 					Count = 1,
 				};
 
-				var actual_2 = PoolResource.Free(parent, ticket_2);
+				var actual_2 = PoolResource.Free(ticket_2);
 
 				Assert.IsTrue(actual_2);
 				var head = PoolResource.Head;
@@ -638,7 +621,7 @@ namespace UniBlocks.UnitTests
 					Count = 1,
 				};
 
-				var actual_3 = PoolResource.Free(parent, ticket_3);
+				var actual_3 = PoolResource.Free(ticket_3);
 
 				Assert.IsTrue(actual_3);
 				var head = PoolResource.Head;

@@ -11,10 +11,11 @@ namespace UniBlocks.UnitTests
 		public void ConstructorTest0()
 		{
 			const uint NO_OF_ITEMS = 6;
-			var poolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS);
+			var items = new MockGLStaticBufferResource[0];
+			var poolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS, items);
 
-			Assert.IsNotNull(poolResource.Items);
-			Assert.AreEqual(NO_OF_ITEMS, poolResource.Items.Length);
+			Assert.AreSame(items, poolResource.Items);
+			Assert.AreEqual(NO_OF_ITEMS, poolResource.Count);
 
 			var head = poolResource.Head;
 			Assert.IsNotNull(head);
@@ -29,7 +30,7 @@ namespace UniBlocks.UnitTests
 		public void ConstructorTest1()
 		{
 			const uint NO_OF_ITEMS = 0;
-			var poolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS);
+			var poolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS, null);
 		}
 	}
 }

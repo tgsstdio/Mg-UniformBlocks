@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Magnesium.OpenGL
 {
-	class GLPoolResourceNode
+	public class GLPoolResourceNode
 	{
 		public uint First { get; set; }
 		public uint Last { get; set; }
@@ -11,39 +11,30 @@ namespace Magnesium.OpenGL
 		public GLPoolResourceNode Next { get; set; }
 	}
 
-	class GLPoolResource<T> : IGLDescriptorPoolResource<T>
-		where T : IGLDescriptorSetResource, new()
+	public class GLPoolResource<T> : IGLDescriptorPoolResource<T>
 	{
-		public GLPoolResource(uint noOfItems)
-		{
-			if (noOfItems == 0)
-				throw new ArgumentOutOfRangeException(nameof(noOfItems) + " must be greater than zero");
+		public T[] Items { get; private set; }
 
-			Items = new T[noOfItems];
+		public GLPoolResource(uint count, T[] items)
+		{
+			Items = items;
+
+			if (count == 0)
+				throw new ArgumentOutOfRangeException(nameof(count) + " must be greater than zero");
+
+			Count = count;
 			Head = new GLPoolResourceNode
 			{
 				First = 0,
-				Last = noOfItems - 1,
-				Count = noOfItems,
+				Last = count - 1,
+				Count = count,
 				Next = null,
 			};
 		}
 
-		public void Reset()
-		{
-			foreach (var item in Items)
-			{
-				item.Reset();
-			}
-		}
+		public uint Count { get; private set; }
 
 		public GLPoolResourceNode Head { get; private set; }
-
-		public T[] Items
-		{
-			get;
-			private set;
-		}
 
 		public bool Allocate(uint request, out GLPoolResourceInfo range)
 		{
@@ -114,12 +105,12 @@ namespace Magnesium.OpenGL
 			return false;
 		}
 
-		public bool Free(IGLDescriptorPoolResource<T> parent, GLPoolResourceInfo ticket)
+		public bool Free(GLPoolResourceInfo ticket)
 		{
 			// only tickets from same pool resource
 			// CAN MOVE THIS OUT
-			if (!ReferenceEquals(this, parent))
-				return false;
+			//if (!ReferenceEquals(this, parent))
+			//	return false;
 
 			// TODO? : spamming same ticket should have no effect (maybe)
 
@@ -273,10 +264,10 @@ namespace Magnesium.OpenGL
 
 		void ValidateTicket(GLPoolResourceInfo ticket)
 		{
-			if ((ticket.First + ticket.Count) > Items.Length) throw new InvalidOperationException();
+			if ((ticket.First + ticket.Count) > Count) throw new InvalidOperationException();
 			if (ticket.Count == 0) throw new InvalidOperationException();
 			if ((ticket.First + ticket.Count - 1) != ticket.Last) throw new InvalidOperationException();
-			if (ticket.Last > Items.Length) throw new InvalidOperationException();
+			if (ticket.Last > Count) throw new InvalidOperationException();
 		}
 
 		void ValidateLocation(GLPoolResourceNode previous, GLPoolResourceInfo ticket, GLPoolResourceNode current)

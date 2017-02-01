@@ -31,7 +31,7 @@ namespace Magnesium.OpenGL
                     var images = new GLImageDescriptor[noOfArrayItems];
                     for (var i = 0; i < noOfArrayItems; i += 1)
                     {
-						images[i] = new GLImageDescriptor { Entrypoint = mImageEntrypoint };
+						images[i] = new GLImageDescriptor(mImageEntrypoint);
                     }
 
 					mBindings.Add(bind.Binding, new GLDescriptorBinding (bind.Binding, images));

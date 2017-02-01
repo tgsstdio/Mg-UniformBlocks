@@ -13,7 +13,7 @@ namespace UniBlocks.UnitTests
 		[SetUp]
 		public void Setup()
 		{
-			PoolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS);
+			PoolResource = new GLPoolResource<MockGLStaticBufferResource>(NO_OF_ITEMS, null);
 		}
 
 		[TearDown]

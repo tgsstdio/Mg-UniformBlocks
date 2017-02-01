@@ -43,15 +43,11 @@
     <Compile Include="BuildParameterTest.cs" />
     <Compile Include="MockGLDescriptorSetLayout.cs" />
     <Compile Include="ArrayPoolTests.cs" />
-    <Compile Include="GLPoolResourceInfo.cs" />
-    <Compile Include="IGLDescriptorPoolResource.cs" />
     <Compile Include="AllocatePoolResourceTests.cs" />
     <Compile Include="GLPoolResource.cs" />
     <Compile Include="MockGLStaticBufferResource.cs" />
     <Compile Include="FreePoolResourcesTest.cs" />
-    <Compile Include="GLNextDescriptorSet.cs" />
     <Compile Include="GLNextDescriptorPool.cs" />
-    <Compile Include="IGLDescriptorPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -6,6 +6,11 @@ namespace Magnesium.OpenGL
 	{
 		public IGLImageDescriptorEntrypoint Entrypoint { get; internal set; }
 
+		public GLImageDescriptor(IGLImageDescriptorEntrypoint entrypoint)
+		{
+			Entrypoint = entrypoint;
+		}
+
 		public ulong? SamplerHandle { get; set; }
 
 		public void Replace(ulong handle)

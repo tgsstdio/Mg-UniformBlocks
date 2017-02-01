@@ -78,6 +78,11 @@
     <Compile Include="GLDescriptorSetBinder.cs" />
     <Compile Include="GLDynamicOffsetInfo.cs" />
     <Compile Include="IGLDescriptorSetResource.cs" />
+    <Compile Include="GLNextDescriptorSetUpdator.cs" />
+    <Compile Include="GLNextDescriptorSet.cs" />
+    <Compile Include="IGLDescriptorPool.cs" />
+    <Compile Include="GLPoolResourceInfo.cs" />
+    <Compile Include="IGLDescriptorPoolResource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magnesium, Version=5.0.4.30756, Culture=neutral, processorArchitecture=MSIL">
