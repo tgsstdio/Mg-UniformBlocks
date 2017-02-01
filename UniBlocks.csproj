@@ -83,6 +83,9 @@
     <Compile Include="IGLDescriptorPool.cs" />
     <Compile Include="GLPoolResourceInfo.cs" />
     <Compile Include="IGLDescriptorPoolResource.cs" />
+    <Compile Include="GLNextDescriptorPool.cs" />
+    <Compile Include="IGLDescriptorSetAllocator.cs" />
+    <Compile Include="GLNextDescriptorSetAllocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magnesium, Version=5.0.4.30756, Culture=neutral, processorArchitecture=MSIL">

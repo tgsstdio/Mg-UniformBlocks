@@ -21,7 +21,8 @@ namespace Magnesium.OpenGL
 
 		public bool IsInvalid { get; private set; }
 
-		public void Bind(MgPipelineBindPoint pipelineBindPoint, IMgPipelineLayout layout, uint firstSet, uint descriptorSetCount, IMgDescriptorSet[] pDescriptorSets, uint[] pDynamicOffsets)
+		public void Bind(MgPipelineBindPoint pipelineBindPoint, IMgPipelineLayout layout, uint firstSet, 
+		                 uint descriptorSetCount, IMgDescriptorSet[] pDescriptorSets, uint[] pDynamicOffsets)
 		{
 			if (layout == null)
 			{
@@ -35,7 +36,7 @@ namespace Magnesium.OpenGL
 
 			if (firstSet != 0)
 			{
-				throw new InvalidOperationException("Mg.OpenGL : only descriptor set 0 can be bound.");
+				throw new InvalidOperationException("Magnesium.OpenGL : only descriptor set 0 can be bound.");
 			}
 
 			var bLayout = (IGLPipelineLayout)layout;

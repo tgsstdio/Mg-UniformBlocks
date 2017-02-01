@@ -47,7 +47,6 @@
     <Compile Include="GLPoolResource.cs" />
     <Compile Include="MockGLStaticBufferResource.cs" />
     <Compile Include="FreePoolResourcesTest.cs" />
-    <Compile Include="GLNextDescriptorPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

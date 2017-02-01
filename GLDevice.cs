@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Magnesium.OpenGL
 {
@@ -16,7 +17,8 @@ namespace Magnesium.OpenGL
 
         public Result AllocateDescriptorSets(MgDescriptorSetAllocateInfo pAllocateInfo, out IMgDescriptorSet[] pDescriptorSets)
         {
-            throw new NotImplementedException();
+			IGLDescriptorSetAllocator allocator;
+			return allocator.AllocateDescriptorSets(pAllocateInfo, out pDescriptorSets);
         }
 
         public Result AllocateMemory(MgMemoryAllocateInfo pAllocateInfo, IMgAllocationCallbacks allocator, out IMgDeviceMemory pMemory)
@@ -44,9 +46,11 @@ namespace Magnesium.OpenGL
             throw new NotImplementedException();
         }
 
+		readonly IGLImageDescriptorEntrypoint mImageDescriptor;
         public Result CreateDescriptorPool(MgDescriptorPoolCreateInfo pCreateInfo, IMgAllocationCallbacks allocator, out IMgDescriptorPool pDescriptorPool)
         {
-            throw new NotImplementedException();
+			pDescriptorPool = new GLNextDescriptorPool(pCreateInfo, mImageDescriptor);
+			return Result.SUCCESS;
         }
 
         public Result CreateDescriptorSetLayout(MgDescriptorSetLayoutCreateInfo pCreateInfo, IMgAllocationCallbacks allocator, out IMgDescriptorSetLayout pSetLayout)

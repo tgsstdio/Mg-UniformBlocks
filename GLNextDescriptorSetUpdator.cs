@@ -64,9 +64,9 @@ namespace Magnesium.OpenGL
 			}
 		}
 
-		void UpdateCombinedImageSamplers(MgWriteDescriptorSet desc, IGLDescriptorPool parentPool, GLNextDescriptorPoolResourceTicket descriptor, uint first, uint count)
+		void UpdateCombinedImageSamplers(MgWriteDescriptorSet desc, IGLDescriptorPool parentPool, GLNextDescriptorPoolResourceTicket ticket, uint first, uint count)
 		{
-			if (descriptor.ResourceType == GLDescriptorBindingGroup.Image)
+			if (ticket.ResourceType == GLDescriptorBindingGroup.Image)
 			{
 				for (var j = 0; j < count; j += 1)
 				{
