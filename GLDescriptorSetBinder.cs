@@ -10,7 +10,7 @@ namespace Magnesium.OpenGL
 
 		public IGLPipelineLayout BoundPipelineLayout { get; private set;}
 		public uint[] BoundDynamicOffsets { get; private set;}
-		public IGLDescriptorSet BoundDescriptorSet { get; private set;}
+		public IMgDescriptorSet BoundDescriptorSet { get; private set;}
 
 		public void Clear()
 		{
@@ -36,7 +36,7 @@ namespace Magnesium.OpenGL
 
 			if (firstSet != 0)
 			{
-				throw new InvalidOperationException("Magnesium.OpenGL : only descriptor set 0 can be bound.");
+				throw new InvalidOperationException("Mg.GL : only descriptor set 0 can be bound.");
 			}
 
 			var bLayout = (IGLPipelineLayout)layout;

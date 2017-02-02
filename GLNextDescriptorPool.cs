@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+
 namespace Magnesium.OpenGL
 {
-
-	// public Result CreateDescriptorPool(MgDescriptorPoolCreateInfo pCreateInfo, IMgAllocationCallbacks allocator, out IMgDescriptorPool pDescriptorPool) 
 	public class GLNextDescriptorPool : IGLDescriptorPool
 	{
 		public uint MaxSets { get; set; }
+
+		private readonly ConcurrentBag<IGLDescriptorSet> mAvailableSets;
+		public IDictionary<uint, IGLDescriptorSet> AllocatedSets { get; private set; }
 
 		public IGLDescriptorPoolResource<GLImageDescriptor> CombinedImageSamplers { get; private set;}
 		public IGLDescriptorPoolResource<GLBufferDescriptor> StorageBuffers { get; private set; }
@@ -14,6 +18,12 @@ namespace Magnesium.OpenGL
 		public GLNextDescriptorPool(MgDescriptorPoolCreateInfo createInfo, IGLImageDescriptorEntrypoint entrypoint)
 		{
 			MaxSets = createInfo.MaxSets;
+			mAvailableSets = new ConcurrentBag<IGLDescriptorSet>();
+			for (var i = 0U; i < MaxSets; i += 1)
+			{
+				mAvailableSets.Add(new GLNextDescriptorSet(i, this));
+			}
+			AllocatedSets = new Dictionary<uint, IGLDescriptorSet>();
 
 			var noOfUniformBlocks = 0U;
 			uint noOfStorageBuffers = 0U;
@@ -85,9 +95,44 @@ namespace Magnesium.OpenGL
 			throw new NotImplementedException();
 		}
 
+		public void ResetResource(GLDescriptorPoolResourceInfo resourceInfo)
+		{
+			if (resourceInfo != null)
+			{
+				switch (resourceInfo.ResourceType)
+				{
+					case GLDescriptorBindingGroup.UniformBuffer:
+						UniformBuffers.Free(resourceInfo.Ticket);
+						break;
+					case GLDescriptorBindingGroup.CombinedImageSampler:
+						CombinedImageSamplers.Free(resourceInfo.Ticket);
+						break;
+					case GLDescriptorBindingGroup.StorageBuffer:
+						StorageBuffers.Free(resourceInfo.Ticket);
+						break;
+				}
+			}
+		}
+
 		public Result ResetDescriptorPool(IMgDevice device, uint flags)
 		{
-			throw new NotImplementedException();
+			foreach (var dSet in AllocatedSets.Values)
+			{
+				if (dSet != null && dSet.IsValidDescriptorSet)
+				{
+					foreach (var resource in dSet.Resources)
+					{
+						ResetResource(resource);
+					}
+					dSet.Invalidate();
+				}
+			}
+			return Result.SUCCESS;
+		}
+
+		public bool TryTake(out IGLDescriptorSet result)
+		{
+			return mAvailableSets.TryTake(out result);
 		}
 	}
 }

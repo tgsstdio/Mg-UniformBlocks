@@ -36,9 +36,7 @@
   <ItemGroup>
     <Compile Include="GLUniformBlockNameParser.cs" />
     <Compile Include="GLBufferDescriptor.cs" />
-    <Compile Include="GLDescriptorBinding.cs" />
     <Compile Include="GLDescriptorBindingGroup.cs" />
-    <Compile Include="GLDescriptorSet.cs" />
     <Compile Include="GLDescriptorSetLayout.cs" />
     <Compile Include="GLDevice.cs" />
     <Compile Include="GLImageDescriptor.cs" />
@@ -48,7 +46,6 @@
     <Compile Include="GLUniformBinding.cs" />
     <Compile Include="IGLUniformBlockNameParser.cs" />
     <Compile Include="IGLBuffer.cs" />
-    <Compile Include="IGLDescriptorSet.cs" />
     <Compile Include="IGLDescriptorSetLayout.cs" />
     <Compile Include="IGLDeviceEntrypoint.cs" />
     <Compile Include="IGLDeviceImageViewEntrypoint.cs" />
@@ -64,7 +61,6 @@
     <Compile Include="IGLUniformBlockEntrypoint.cs" />
     <Compile Include="GLBufferBindingPointDirectory.cs" />
     <Compile Include="GLUniformBlockEntry.cs" />
-    <Compile Include="GLDescriptorSetUpdator.cs" />
     <Compile Include="IGLDescriptorSetUpdator.cs" />
     <Compile Include="GLBindingPointOffsetInfo.cs" />
     <Compile Include="GLUniformBlockGroupCollator.cs" />
@@ -87,6 +83,8 @@
     <Compile Include="IGLDescriptorSetAllocator.cs" />
     <Compile Include="GLNextDescriptorSetAllocator.cs" />
     <Compile Include="GLPoolResource.cs" />
+    <Compile Include="IGLDescriptorSet2.cs" />
+    <Compile Include="GLDescriptorPoolResourceInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magnesium, Version=5.0.4.30756, Culture=neutral, processorArchitecture=MSIL">

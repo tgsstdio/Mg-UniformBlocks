@@ -16,20 +16,17 @@ namespace Magnesium.OpenGL
 				for (var i = 0; i < pDescriptorWrites.Length; i += 1)
 				{
 					var desc = pDescriptorWrites[i];
-					var localSet = (GLNextDescriptorSet) desc.DstSet;
+					var localSet = (IGLDescriptorSet) desc.DstSet;
 					var parentPool = localSet.Parent;
 					if (localSet == null)
 					{
 						throw new NotSupportedException();
 					}
 
-					var offset = (int)desc.DstArrayElement;
-
 					var ticket = localSet.Resources[desc.DstBinding];
 					var first = ticket.Ticket.First + desc.DstArrayElement;
-					var count = Math.Min( 	desc.DescriptorCount
-										 ,	ticket.Ticket.Count
-					                      -	desc.DstArrayElement);
+					var count = Math.Min(desc.DescriptorCount, ticket.Ticket.Count - desc.DstArrayElement);
+
 					switch (desc.DescriptorType)
 					{
 						//case MgDescriptorType.SAMPLER:
@@ -64,9 +61,10 @@ namespace Magnesium.OpenGL
 			}
 		}
 
-		void UpdateCombinedImageSamplers(MgWriteDescriptorSet desc, IGLDescriptorPool parentPool, GLNextDescriptorPoolResourceTicket ticket, uint first, uint count)
+		void UpdateCombinedImageSamplers(MgWriteDescriptorSet desc, IGLDescriptorPool parentPool,
+		                                 GLDescriptorPoolResourceInfo ticket, uint first, uint count)
 		{
-			if (ticket.ResourceType == GLDescriptorBindingGroup.Image)
+			if (ticket.ResourceType == GLDescriptorBindingGroup.CombinedImageSampler)
 			{
 				for (var j = 0; j < count; j += 1)
 				{
@@ -89,13 +87,13 @@ namespace Magnesium.OpenGL
 		static void UpdateUniformBuffers(
 			MgWriteDescriptorSet desc,
 			IGLDescriptorPool pool,
-			GLNextDescriptorPoolResourceTicket ticket,
+			GLDescriptorPoolResourceInfo ticket,
 			uint first,
 			uint count,
 			string errorParameterName
 		)
 		{
-			if (ticket.ResourceType == GLDescriptorBindingGroup.Buffer)
+			if (ticket.ResourceType == GLDescriptorBindingGroup.UniformBuffer)
 			{
 				for (var j = 0; j < count; j += 1)
 				{
@@ -135,7 +133,7 @@ namespace Magnesium.OpenGL
 						bufferDesc.Offset = (long)info.Offset;
 						// need to pass in whole 
 						bufferDesc.Size = (int)info.Range;
-						bufferDesc.IsDynamic = (desc.DescriptorType == MgDescriptorType.STORAGE_BUFFER_DYNAMIC);
+						bufferDesc.IsDynamic = (desc.DescriptorType == MgDescriptorType.UNIFORM_BUFFER_DYNAMIC);
 					}
 
 				}
@@ -145,14 +143,14 @@ namespace Magnesium.OpenGL
 		static void UpdateStorageBuffer(
 			MgWriteDescriptorSet desc,
 			IGLDescriptorPool pool,
-			GLNextDescriptorPoolResourceTicket ticket,
+			GLDescriptorPoolResourceInfo ticket,
 			uint first,
 			uint count,
 			string errorParameterName
 		)
 		{
 			
-			if (ticket.ResourceType == GLDescriptorBindingGroup.Buffer)
+			if (ticket.ResourceType == GLDescriptorBindingGroup.StorageBuffer)
 			{
 				for (var j = 0; j < count; j += 1)
 				{

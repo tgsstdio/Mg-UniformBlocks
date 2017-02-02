@@ -37,7 +37,6 @@
     <Compile Include="CollatorTest.cs" />
     <Compile Include="MockGLCommandBuffer.cs" />
     <Compile Include="BlockTokenizerTest.cs" />
-    <Compile Include="GLUniformMapEntry.cs" />
     <Compile Include="MockGLPipelineLayout.cs" />
     <Compile Include="BuildPointDirectoryTest.cs" />
     <Compile Include="BuildParameterTest.cs" />

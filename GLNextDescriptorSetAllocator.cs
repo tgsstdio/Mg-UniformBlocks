@@ -5,16 +5,18 @@ namespace Magnesium.OpenGL
 {
 	public class GLNextDescriptorSetAllocator : IGLDescriptorSetAllocator
 	{
+		#region AllocateDescriptorSets methods
+
 		public Result AllocateDescriptorSets(MgDescriptorSetAllocateInfo pAllocateInfo, out IMgDescriptorSet[] pDescriptorSets)
 		{
 			if (pAllocateInfo == null)
 				throw new ArgumentNullException(nameof(pAllocateInfo));
 
-			var parentPool = (GLNextDescriptorPool)pAllocateInfo.DescriptorPool;
+			var parentPool = (IGLDescriptorPool)pAllocateInfo.DescriptorPool;
 			pDescriptorSets = new IMgDescriptorSet[pAllocateInfo.DescriptorSetCount];
 
 			var maxNoOfResources = 0U;
-			var sortedResources = new List<GLNextDescriptorPoolResourceTicket>();
+			var sortedResources = new List<GLDescriptorPoolResourceInfo>();
 			for (var i = 0; i < pAllocateInfo.DescriptorSetCount; i += 1)
 			{
 				var bSetLayout = (GLDescriptorSetLayout)pAllocateInfo.SetLayouts[i];
@@ -30,11 +32,11 @@ namespace Magnesium.OpenGL
 							if (parentPool.CombinedImageSamplers.Allocate(uniform.DescriptorCount, out ticket))
 							{
 								sortedResources.Add(
-									new GLNextDescriptorPoolResourceTicket
+									new GLDescriptorPoolResourceInfo
 									{
 									Binding = uniform.Binding,
 									DescriptorCount = uniform.DescriptorCount,
-									ResourceType = GLDescriptorBindingGroup.Image,
+									ResourceType = GLDescriptorBindingGroup.CombinedImageSampler,
 									Ticket = ticket,
 									}
 								);
@@ -49,11 +51,11 @@ namespace Magnesium.OpenGL
 							if (parentPool.StorageBuffers.Allocate(uniform.DescriptorCount, out ticket))
 							{
 								sortedResources.Add(
-									new GLNextDescriptorPoolResourceTicket
+									new GLDescriptorPoolResourceInfo
 									{
 									Binding = uniform.Binding,
 									DescriptorCount = uniform.DescriptorCount,
-									ResourceType = GLDescriptorBindingGroup.Buffer,
+									ResourceType = GLDescriptorBindingGroup.StorageBuffer,
 									Ticket = ticket,
 									}
 								);
@@ -68,11 +70,11 @@ namespace Magnesium.OpenGL
 							if (parentPool.UniformBuffers.Allocate(uniform.DescriptorCount, out ticket))
 							{
 								sortedResources.Add(
-									new GLNextDescriptorPoolResourceTicket
+									new GLDescriptorPoolResourceInfo
 									{
 									Binding = uniform.Binding,
 									DescriptorCount = uniform.DescriptorCount,
-									ResourceType = GLDescriptorBindingGroup.Buffer,
+									ResourceType = GLDescriptorBindingGroup.UniformBuffer,
 									Ticket = ticket,
 									}
 								);
@@ -86,15 +88,61 @@ namespace Magnesium.OpenGL
 					}
 				}
 
-				var resources = new GLNextDescriptorPoolResourceTicket[maxNoOfResources];
+				var resources = new GLDescriptorPoolResourceInfo[maxNoOfResources];
 				foreach (var res in sortedResources)
 				{
 					resources[res.Binding] = res;
 				}
-				pDescriptorSets[i] = new GLNextDescriptorSet(parentPool, resources);
+
+				IGLDescriptorSet item;
+				if (parentPool.TryTake(out item))
+				{
+					item.Initialise(resources);
+					parentPool.AllocatedSets.Add(item.Key, item);
+				}
 			}
 
 			return Result.SUCCESS;
 		}
+
+		#endregion
+
+		#region FreeDescriptorSets methods
+
+		public Result FreeDescriptorSets(IMgDescriptorPool descriptorPool, IMgDescriptorSet[] pDescriptorSets)
+		{
+			if (descriptorPool == null)
+			{
+				throw new ArgumentNullException(nameof(descriptorPool));
+			}
+
+			if (pDescriptorSets == null)
+			{
+				throw new ArgumentNullException(nameof(pDescriptorSets));
+			}
+
+			var parentPool = (IGLDescriptorPool) descriptorPool;
+
+			foreach (var descSet in pDescriptorSets)
+			{
+				var bDescSet = (IGLDescriptorSet) descSet;
+				if (bDescSet != null && ReferenceEquals(parentPool, bDescSet.Parent))
+				{
+					if (bDescSet.IsValidDescriptorSet)
+					{
+						foreach (var resource in bDescSet.Resources)
+						{
+							parentPool.ResetResource(resource);
+						}
+						bDescSet.Invalidate();
+						parentPool.AllocatedSets.Remove(bDescSet.Key);
+					}
+				}
+			}
+
+			return Result.SUCCESS;
+		}
+
+		#endregion
 	}
 }
