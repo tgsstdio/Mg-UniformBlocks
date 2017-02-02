@@ -3,7 +3,7 @@ using System;
 
 namespace Magnesium.OpenGL
 {
-	public class GLBufferDescriptor : IGLDescriptorSetResource
+	public class GLBufferDescriptor
 	{
 		public GLBufferDescriptor()
 		{

@@ -2,7 +2,7 @@
 
 namespace Magnesium.OpenGL
 {
-	public class GLImageDescriptor : IGLDescriptorSetResource
+	public class GLImageDescriptor
 	{
 		public IGLImageDescriptorEntrypoint Entrypoint { get; internal set; }
 

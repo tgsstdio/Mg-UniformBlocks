@@ -3,7 +3,7 @@ using Magnesium.OpenGL;
 
 namespace UniBlocks.UnitTests
 {
-	struct MockGLStaticBufferResource : IGLDescriptorSetResource
+	struct MockGLStaticBufferResource
 	{
 		public void Reset()
 		{

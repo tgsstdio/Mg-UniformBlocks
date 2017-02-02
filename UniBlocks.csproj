@@ -50,7 +50,6 @@
     <Compile Include="IGLDeviceEntrypoint.cs" />
     <Compile Include="IGLDeviceImageViewEntrypoint.cs" />
     <Compile Include="IGLImageDescriptorEntrypoint.cs" />
-    <Compile Include="IGLLayoutEntrypoint.cs" />
     <Compile Include="GLInternalCache.cs" />
     <Compile Include="IGLPipelineLayout.cs" />
     <Compile Include="IGLSamplerEntrypoint.cs" />
@@ -73,7 +72,6 @@
     <Compile Include="IGLSLProgramInspector.cs" />
     <Compile Include="GLDescriptorSetBinder.cs" />
     <Compile Include="GLDynamicOffsetInfo.cs" />
-    <Compile Include="IGLDescriptorSetResource.cs" />
     <Compile Include="GLNextDescriptorSetUpdator.cs" />
     <Compile Include="GLNextDescriptorSet.cs" />
     <Compile Include="IGLDescriptorPool.cs" />
@@ -83,7 +81,7 @@
     <Compile Include="IGLDescriptorSetAllocator.cs" />
     <Compile Include="GLNextDescriptorSetAllocator.cs" />
     <Compile Include="GLPoolResource.cs" />
-    <Compile Include="IGLDescriptorSet2.cs" />
+    <Compile Include="IGLDescriptorSet.cs" />
     <Compile Include="GLDescriptorPoolResourceInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -64,7 +64,7 @@ namespace Magnesium.OpenGL
 		void UpdateCombinedImageSamplers(MgWriteDescriptorSet desc, IGLDescriptorPool parentPool,
 		                                 GLDescriptorPoolResourceInfo ticket, uint first, uint count)
 		{
-			if (ticket.ResourceType == GLDescriptorBindingGroup.CombinedImageSampler)
+			if (ticket.GroupType == GLDescriptorBindingGroup.CombinedImageSampler)
 			{
 				for (var j = 0; j < count; j += 1)
 				{
@@ -93,7 +93,7 @@ namespace Magnesium.OpenGL
 			string errorParameterName
 		)
 		{
-			if (ticket.ResourceType == GLDescriptorBindingGroup.UniformBuffer)
+			if (ticket.GroupType == GLDescriptorBindingGroup.UniformBuffer)
 			{
 				for (var j = 0; j < count; j += 1)
 				{
@@ -150,7 +150,7 @@ namespace Magnesium.OpenGL
 		)
 		{
 			
-			if (ticket.ResourceType == GLDescriptorBindingGroup.StorageBuffer)
+			if (ticket.GroupType == GLDescriptorBindingGroup.StorageBuffer)
 			{
 				for (var j = 0; j < count; j += 1)
 				{

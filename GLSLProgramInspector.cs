@@ -7,9 +7,9 @@ namespace Magnesium.OpenGL
 		readonly IGLUniformBlockEntrypoint mEntrypoint;
 		readonly IGLUniformBlockNameParser mParser;
 
-		public GLSLProgramInspector(IGLUniformBlockEntrypoint uniforms, IGLUniformBlockNameParser parser)
+		public GLSLProgramInspector(IGLUniformBlockEntrypoint entrypoint, IGLUniformBlockNameParser parser)
 		{
-			mEntrypoint = uniforms;
+			mEntrypoint = entrypoint;
 			mParser = parser;
 		}
 

@@ -4,7 +4,7 @@
 	{
 		public int[] Strides { get; set; }
 		public GLInternalCacheBlockBinding[] BlockBindings { get; private set; }
-		private GLInternalCacheArrayMapper mArrayMapper;
+		private readonly GLInternalCacheArrayMapper mArrayMapper;
 		public GLInternalCache
 		(
 			IGLPipelineLayout pipelineLayout,

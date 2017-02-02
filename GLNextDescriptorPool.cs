@@ -99,7 +99,7 @@ namespace Magnesium.OpenGL
 		{
 			if (resourceInfo != null)
 			{
-				switch (resourceInfo.ResourceType)
+				switch (resourceInfo.GroupType)
 				{
 					case GLDescriptorBindingGroup.UniformBuffer:
 						UniformBuffers.Free(resourceInfo.Ticket);

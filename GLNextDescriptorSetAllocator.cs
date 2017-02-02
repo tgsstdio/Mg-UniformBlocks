@@ -36,7 +36,7 @@ namespace Magnesium.OpenGL
 									{
 									Binding = uniform.Binding,
 									DescriptorCount = uniform.DescriptorCount,
-									ResourceType = GLDescriptorBindingGroup.CombinedImageSampler,
+									GroupType = GLDescriptorBindingGroup.CombinedImageSampler,
 									Ticket = ticket,
 									}
 								);
@@ -55,7 +55,7 @@ namespace Magnesium.OpenGL
 									{
 									Binding = uniform.Binding,
 									DescriptorCount = uniform.DescriptorCount,
-									ResourceType = GLDescriptorBindingGroup.StorageBuffer,
+									GroupType = GLDescriptorBindingGroup.StorageBuffer,
 									Ticket = ticket,
 									}
 								);
@@ -74,7 +74,7 @@ namespace Magnesium.OpenGL
 									{
 									Binding = uniform.Binding,
 									DescriptorCount = uniform.DescriptorCount,
-									ResourceType = GLDescriptorBindingGroup.UniformBuffer,
+									GroupType = GLDescriptorBindingGroup.UniformBuffer,
 									Ticket = ticket,
 									}
 								);
