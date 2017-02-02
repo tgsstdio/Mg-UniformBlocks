@@ -41,7 +41,7 @@
     <Compile Include="GLDevice.cs" />
     <Compile Include="GLImageDescriptor.cs" />
     <Compile Include="GLImageView.cs" />
-    <Compile Include="GLPipelineLayout.cs" />
+    <Compile Include="GLNextPipelineLayout.cs" />
     <Compile Include="GLSampler.cs" />
     <Compile Include="GLUniformBinding.cs" />
     <Compile Include="IGLUniformBlockNameParser.cs" />
@@ -68,9 +68,9 @@
     <Compile Include="GLInternalCacheBlockBinding.cs" />
     <Compile Include="GLInternalCacheArrayMapper.cs" />
     <Compile Include="IGLDescriptorSetBinder.cs" />
-    <Compile Include="GLSLProgramInspector.cs" />
-    <Compile Include="IGLSLProgramInspector.cs" />
-    <Compile Include="GLDescriptorSetBinder.cs" />
+    <Compile Include="GLSLShaderProgramInspector.cs" />
+    <Compile Include="IGLShaderModuleInspector.cs" />
+    <Compile Include="GLNextDescriptorSetBinder.cs" />
     <Compile Include="GLDynamicOffsetInfo.cs" />
     <Compile Include="GLNextDescriptorSetUpdator.cs" />
     <Compile Include="GLNextDescriptorSet.cs" />

@@ -2,7 +2,7 @@
 {
 	public class GLInternalCache
 	{
-		public int[] Strides { get; set; }
+		public int[] Strides { get; private set; }
 		public GLInternalCacheBlockBinding[] BlockBindings { get; private set; }
 		private readonly GLInternalCacheArrayMapper mArrayMapper;
 		public GLInternalCache

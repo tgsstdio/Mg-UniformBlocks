@@ -1,16 +1,16 @@
 ﻿using System;
 namespace Magnesium.OpenGL
 {
-	public class GLDescriptorSetBinder : IGLDescriptorSetBinder
+	public class GLNextDescriptorSetBinder : IGLDescriptorSetBinder
 	{
-		public GLDescriptorSetBinder()
+		public GLNextDescriptorSetBinder()
 		{
 			Clear();
 		}
 
 		public IGLPipelineLayout BoundPipelineLayout { get; private set;}
 		public uint[] BoundDynamicOffsets { get; private set;}
-		public IMgDescriptorSet BoundDescriptorSet { get; private set;}
+		public IGLDescriptorSet BoundDescriptorSet { get; private set;}
 
 		public void Clear()
 		{

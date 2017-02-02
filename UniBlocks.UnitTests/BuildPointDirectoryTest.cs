@@ -27,7 +27,7 @@ namespace UniBlocks.UnitTests
 					mock
 				},
 			};
-			var result = new GLPipelineLayout(createInfo);
+			var result = new GLNextPipelineLayout(createInfo);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(0, result.NoOfBindingPoints);
 		}
@@ -56,7 +56,7 @@ namespace UniBlocks.UnitTests
 				},
 			};
 
-			var result = new GLPipelineLayout(createInfo);
+			var result = new GLNextPipelineLayout(createInfo);
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual(10, result.NoOfBindingPoints);
@@ -92,7 +92,7 @@ namespace UniBlocks.UnitTests
 				},
 			};
 
-			var result = new GLPipelineLayout(createInfo);
+			var result = new GLNextPipelineLayout(createInfo);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(3, result.NoOfBindingPoints);
 		}
@@ -127,7 +127,7 @@ namespace UniBlocks.UnitTests
 				},
 			};
 
-			var result = new GLPipelineLayout(createInfo);
+			var result = new GLNextPipelineLayout(createInfo);
 			Assert.IsNotNull(result);
 			Assert.AreEqual(3, result.NoOfBindingPoints);
 		}
@@ -162,7 +162,7 @@ namespace UniBlocks.UnitTests
 				},
 			};
 
-			var result = new GLPipelineLayout(createInfo);
+			var result = new GLNextPipelineLayout(createInfo);
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual(3, result.NoOfBindingPoints);

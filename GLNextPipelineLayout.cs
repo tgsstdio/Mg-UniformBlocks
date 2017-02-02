@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 
 namespace Magnesium.OpenGL
 {
-	public class GLPipelineLayout : IGLPipelineLayout
+	public class GLNextPipelineLayout : IGLPipelineLayout
 	{
 		public GLUniformBinding[] Bindings { get; private set; }
 
@@ -15,7 +14,7 @@ namespace Magnesium.OpenGL
 
 		public GLDynamicOffsetInfo[] OffsetDestinations { get; private set; }
 
-		public GLPipelineLayout(MgPipelineLayoutCreateInfo pCreateInfo)
+		public GLNextPipelineLayout(MgPipelineLayoutCreateInfo pCreateInfo)
 		{
 			if (pCreateInfo.SetLayouts.Length == 1)
 			{
@@ -99,6 +98,9 @@ namespace Magnesium.OpenGL
 		{
 			if (other == null)
 				return false;
+
+			if (ReferenceEquals(this, other))
+				return true;
 
 			if (NoOfBindingPoints != other.NoOfBindingPoints)
 				return false;

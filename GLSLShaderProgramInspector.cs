@@ -2,18 +2,18 @@
 
 namespace Magnesium.OpenGL
 {
-	public class GLSLProgramInspector : IGLSLProgramInspector
+	public class GLSLShaderProgramInspector : IGLShaderModuleInspector
 	{
 		readonly IGLUniformBlockEntrypoint mEntrypoint;
 		readonly IGLUniformBlockNameParser mParser;
 
-		public GLSLProgramInspector(IGLUniformBlockEntrypoint entrypoint, IGLUniformBlockNameParser parser)
+		public GLSLShaderProgramInspector(IGLUniformBlockEntrypoint entrypoint, IGLUniformBlockNameParser parser)
 		{
 			mEntrypoint = entrypoint;
 			mParser = parser;
 		}
 
-		public GLUniformBlockEntry[] ExtractBlockEntries(int programId)
+		public GLUniformBlockEntry[] Inspect(int programId)
 		{
 			var count = mEntrypoint.GetNoOfActiveUniformBlocks(programId);
 			var entries = new List<GLUniformBlockEntry>();

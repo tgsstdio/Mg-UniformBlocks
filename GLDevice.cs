@@ -80,7 +80,26 @@ namespace Magnesium.OpenGL
 
         public Result CreateGraphicsPipelines(IMgPipelineCache pipelineCache, MgGraphicsPipelineCreateInfo[] pCreateInfos, IMgAllocationCallbacks allocator, out IMgPipeline[] pPipelines)
         {
-            throw new NotImplementedException();
+			var noOfPipelines = pCreateInfos.Length;
+			pPipelines = new IMgPipeline[noOfPipelines];
+			for (var i = 0; i < noOfPipelines; i += 1)
+			{
+				var createInfo = pCreateInfos[i];
+
+				var bLayout = (IGLPipelineLayout) createInfo.Layout;
+
+				var programId = 0;
+				IGLShaderModuleInspector inspector = null;
+
+				var blocks = inspector.Inspect(programId);
+				var arrayMapper = new GLInternalCacheArrayMapper(bLayout, blocks);
+				var cache = new GLInternalCache(bLayout, blocks, arrayMapper);
+
+
+
+			}
+
+			return Result.SUCCESS;
         }
 
         public Result CreateImage(MgImageCreateInfo pCreateInfo, IMgAllocationCallbacks allocator, out IMgImage pImage)

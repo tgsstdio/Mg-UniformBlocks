@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Magnesium.OpenGL
+﻿namespace Magnesium.OpenGL
 {
 	public class GLNextDescriptorSet : IGLDescriptorSet
 	{
@@ -35,6 +33,9 @@ namespace Magnesium.OpenGL
 		public bool Equals(IGLDescriptorSet other)
 		{
 			if (other == null)
+				return false;
+
+			if (!ReferenceEquals(Parent, other.Parent))
 				return false;
 
 			return Key == other.Key;
