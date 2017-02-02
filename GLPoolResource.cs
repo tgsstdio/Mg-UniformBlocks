@@ -36,7 +36,7 @@ namespace Magnesium.OpenGL
 
 		public GLPoolResourceNode Head { get; private set; }
 
-		public bool Allocate(uint request, out GLPoolResourceInfo range)
+		public bool Allocate(uint request, out GLPoolResourceTicket range)
 		{
 			if (request == 0)
 			{
@@ -51,7 +51,7 @@ namespace Magnesium.OpenGL
 				{
 					if (current.Count == request)
 					{
-						range = new GLPoolResourceInfo
+						range = new GLPoolResourceTicket
 						{
 							First = current.First,
 							Last = current.Last,
@@ -84,7 +84,7 @@ namespace Magnesium.OpenGL
 				{
 					if (current.Count > request)
 					{
-						range = new GLPoolResourceInfo
+						range = new GLPoolResourceTicket
 						{
 							First = current.First,
 							Last = request + current.First - 1,
@@ -105,7 +105,7 @@ namespace Magnesium.OpenGL
 			return false;
 		}
 
-		public bool Free(GLPoolResourceInfo ticket)
+		public bool Free(GLPoolResourceTicket ticket)
 		{
 			// only tickets from same pool resource
 			// CAN MOVE THIS OUT
@@ -162,7 +162,7 @@ namespace Magnesium.OpenGL
 			}
 		}
 
-		void AdjustTicketsSpan(GLPoolResourceInfo ticket, GLPoolResourceNode parent)
+		void AdjustTicketsSpan(GLPoolResourceTicket ticket, GLPoolResourceNode parent)
 		{
 			GLPoolResourceNode lastNode = null;
 			bool intercepts = false;
@@ -203,7 +203,7 @@ namespace Magnesium.OpenGL
 
 		}
 
-		void PerformMerge(GLPoolResourceNode left, GLPoolResourceInfo ticket, GLPoolResourceNode right)
+		void PerformMerge(GLPoolResourceNode left, GLPoolResourceTicket ticket, GLPoolResourceNode right)
 		{
 			bool leftMerge = left != null && (ticket.First == (left.Last + 1));
 			bool rightMerge = right != null && ((ticket.Last + 1) == right.First);
@@ -262,7 +262,7 @@ namespace Magnesium.OpenGL
 			}
 		}
 
-		void ValidateTicket(GLPoolResourceInfo ticket)
+		void ValidateTicket(GLPoolResourceTicket ticket)
 		{
 			if ((ticket.First + ticket.Count) > Count) throw new InvalidOperationException();
 			if (ticket.Count == 0) throw new InvalidOperationException();
@@ -270,7 +270,7 @@ namespace Magnesium.OpenGL
 			if (ticket.Last > Count) throw new InvalidOperationException();
 		}
 
-		void ValidateLocation(GLPoolResourceNode previous, GLPoolResourceInfo ticket, GLPoolResourceNode current)
+		void ValidateLocation(GLPoolResourceNode previous, GLPoolResourceTicket ticket, GLPoolResourceNode current)
 		{
 			if (previous != null && previous.Last >= ticket.First) throw new InvalidOperationException();
 			if (current != null && current.First <= ticket.Last) throw new InvalidOperationException();

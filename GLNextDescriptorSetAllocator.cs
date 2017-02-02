@@ -13,7 +13,8 @@ namespace Magnesium.OpenGL
 			var parentPool = (GLNextDescriptorPool)pAllocateInfo.DescriptorPool;
 			pDescriptorSets = new IMgDescriptorSet[pAllocateInfo.DescriptorSetCount];
 
-			var sortedResources = new SortedDictionary<uint, GLNextDescriptorPoolResourceTicket>();
+			var maxNoOfResources = 0U;
+			var sortedResources = new List<GLNextDescriptorPoolResourceTicket>();
 			for (var i = 0; i < pAllocateInfo.DescriptorSetCount; i += 1)
 			{
 				var bSetLayout = (GLDescriptorSetLayout)pAllocateInfo.SetLayouts[i];
@@ -21,62 +22,75 @@ namespace Magnesium.OpenGL
 				sortedResources.Clear();
 				foreach (var uniform in bSetLayout.Uniforms)
 				{
-					GLPoolResourceInfo ticket;
+					maxNoOfResources = Math.Max(maxNoOfResources, uniform.Binding);
+					GLPoolResourceTicket ticket;
 					switch (uniform.DescriptorType)
 					{
 						case MgDescriptorType.COMBINED_IMAGE_SAMPLER:
 							if (parentPool.CombinedImageSamplers.Allocate(uniform.DescriptorCount, out ticket))
 							{
 								sortedResources.Add(
-									uniform.Binding,
 									new GLNextDescriptorPoolResourceTicket
 									{
-
+									Binding = uniform.Binding,
+									DescriptorCount = uniform.DescriptorCount,
+									ResourceType = GLDescriptorBindingGroup.Image,
+									Ticket = ticket,
 									}
 								);
 							}
 							else
 							{
-								throw new Exception(); // check specific error
+								// VK_ERROR_FRAGMENTED_POOL = -12
+								return Result.ERROR_OUT_OF_HOST_MEMORY;
 							}
 							break;
 						case MgDescriptorType.STORAGE_BUFFER:
 							if (parentPool.StorageBuffers.Allocate(uniform.DescriptorCount, out ticket))
 							{
 								sortedResources.Add(
-									uniform.Binding,
 									new GLNextDescriptorPoolResourceTicket
 									{
-
+									Binding = uniform.Binding,
+									DescriptorCount = uniform.DescriptorCount,
+									ResourceType = GLDescriptorBindingGroup.Buffer,
+									Ticket = ticket,
 									}
 								);
 							}
 							else
 							{
-								throw new Exception(); // check specific error
+								// VK_ERROR_FRAGMENTED_POOL = -12
+								return Result.ERROR_OUT_OF_HOST_MEMORY;
 							}
 							break;
-						case MgDescriptorType.UNIFORM_BUFFER
+						case MgDescriptorType.UNIFORM_BUFFER:
 							if (parentPool.UniformBuffers.Allocate(uniform.DescriptorCount, out ticket))
 							{
 								sortedResources.Add(
-									uniform.Binding,
 									new GLNextDescriptorPoolResourceTicket
 									{
-
+									Binding = uniform.Binding,
+									DescriptorCount = uniform.DescriptorCount,
+									ResourceType = GLDescriptorBindingGroup.Buffer,
+									Ticket = ticket,
 									}
 								);
 							}
 							else
 							{
-								throw new Exception(); // check specific error
+								// VK_ERROR_FRAGMENTED_POOL = -12
+								return Result.ERROR_OUT_OF_HOST_MEMORY;
 							}
 							break;
 					}
 				}
 
-				var resources = new GLNextDescriptorPoolResourceTicket[sortedResources.Count];
-				sortedResources.Values.CopyTo(resources, 0);
+				var resources = new GLNextDescriptorPoolResourceTicket[maxNoOfResources];
+				foreach (var res in sortedResources)
+				{
+					resources[res.Binding] = res;
+				}
 				pDescriptorSets[i] = new GLNextDescriptorSet(parentPool, resources);
 			}
 

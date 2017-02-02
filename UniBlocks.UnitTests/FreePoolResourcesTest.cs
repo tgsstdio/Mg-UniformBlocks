@@ -41,7 +41,7 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void NewHead()
 		{
-			GLPoolResourceInfo ticket;
+			GLPoolResourceTicket ticket;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket);
 
 			Assert.IsTrue(initialCheck);
@@ -61,7 +61,7 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void SpamTest_0()
 		{
-			GLPoolResourceInfo ticket;
+			GLPoolResourceTicket ticket;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket);
 
 			Assert.IsTrue(initialCheck);
@@ -93,7 +93,7 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void SpamTest_InsideRange_0()
 		{
-			GLPoolResourceInfo ticket_0;
+			GLPoolResourceTicket ticket_0;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket_0);
 
 			Assert.IsTrue(initialCheck);
@@ -112,7 +112,7 @@ namespace UniBlocks.UnitTests
 			}
 
 			{
-				var ticket_1 = new GLPoolResourceInfo
+				var ticket_1 = new GLPoolResourceTicket
 				{
 					First = 0,
 					Last = 1, 
@@ -135,13 +135,13 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void SpamTest_OutsideRange_0()
 		{
-			GLPoolResourceInfo ticket_0;
+			GLPoolResourceTicket ticket_0;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket_0);
 
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var ticket_1 = new GLPoolResourceInfo
+			var ticket_1 = new GLPoolResourceTicket
 			{
 				First = 0,
 				Last = 2,
@@ -161,7 +161,7 @@ namespace UniBlocks.UnitTests
 			}
 
 			{
-				var ticket_2 = new GLPoolResourceInfo
+				var ticket_2 = new GLPoolResourceTicket
 				{
 					First = 0,
 					Last = 3,
@@ -184,13 +184,13 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void SpamTest_OutsideRange_1()
 		{
-			GLPoolResourceInfo ticket_0;
+			GLPoolResourceTicket ticket_0;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket_0);
 
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var ticket_1 = new GLPoolResourceInfo
+			var ticket_1 = new GLPoolResourceTicket
 			{
 				First = 0,
 				Last = 1,
@@ -211,7 +211,7 @@ namespace UniBlocks.UnitTests
 			}
 
 			{
-				var ticket_2 = new GLPoolResourceInfo
+				var ticket_2 = new GLPoolResourceTicket
 				{
 					First = 3,
 					Last = 4,
@@ -237,7 +237,7 @@ namespace UniBlocks.UnitTests
 			}
 
 			{
-				var ticket_3 = new GLPoolResourceInfo
+				var ticket_3 = new GLPoolResourceTicket
 				{
 					First = 0,
 					Last = 4,
@@ -262,13 +262,13 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void SpamTest_OutsideRange_2()
 		{
-			GLPoolResourceInfo ticket_0;
+			GLPoolResourceTicket ticket_0;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket_0);
 
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var ticket_1 = new GLPoolResourceInfo
+			var ticket_1 = new GLPoolResourceTicket
 			{
 				First = 0,
 				Last = 0,
@@ -288,7 +288,7 @@ namespace UniBlocks.UnitTests
 				Assert.AreEqual(ticket_1.Count, head.Count);
 			}
 
-			var ticket_2 = new GLPoolResourceInfo
+			var ticket_2 = new GLPoolResourceTicket
 			{
 				First = 2,
 				Last = 3,
@@ -314,7 +314,7 @@ namespace UniBlocks.UnitTests
 				Assert.AreEqual(ticket_2.Count, next_0.Count);
 			}
 
-			var ticket_3 = new GLPoolResourceInfo
+			var ticket_3 = new GLPoolResourceTicket
 			{
 				First = 5,
 				Last = 5,
@@ -348,7 +348,7 @@ namespace UniBlocks.UnitTests
 			}
 
 			{
-				var ticket_4 = new GLPoolResourceInfo
+				var ticket_4 = new GLPoolResourceTicket
 				{
 					First = 0,
 					Last = 2,
@@ -376,7 +376,7 @@ namespace UniBlocks.UnitTests
 
 		public void SpamTest_1()
 		{
-			GLPoolResourceInfo ticket;
+			GLPoolResourceTicket ticket;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket);
 
 			Assert.IsTrue(initialCheck);
@@ -419,13 +419,13 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void TwoNodesAppended()
 		{
-			GLPoolResourceInfo ticket_0;
+			GLPoolResourceTicket ticket_0;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket_0);
 
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var ticket_1 = new GLPoolResourceInfo
+			var ticket_1 = new GLPoolResourceTicket
 			{
 				First = 0,
 				Last = 0,
@@ -443,7 +443,7 @@ namespace UniBlocks.UnitTests
 			Assert.AreEqual(ticket_1.Last, head.Last);
 			Assert.AreEqual(ticket_1.Count, head.Count);
 
-			var ticket_2 = new GLPoolResourceInfo
+			var ticket_2 = new GLPoolResourceTicket
 			{
 				First = 2,
 				Last = 2,
@@ -466,13 +466,13 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void LeftMerge()
 		{
-			GLPoolResourceInfo ticket_0;
+			GLPoolResourceTicket ticket_0;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket_0);
 
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
-			var ticket_1 = new GLPoolResourceInfo
+			var ticket_1 = new GLPoolResourceTicket
 			{
 				First = 0,
 				Last = 0,
@@ -490,7 +490,7 @@ namespace UniBlocks.UnitTests
 			Assert.AreEqual(ticket_1.Last, head.Last);
 			Assert.AreEqual(ticket_1.Count, head.Count);
 
-			var ticket_2 = new GLPoolResourceInfo
+			var ticket_2 = new GLPoolResourceTicket
 			{
 				First = 1,
 				Last = 1,
@@ -512,7 +512,7 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void RightMerge()
 		{
-			GLPoolResourceInfo ticket_0;
+			GLPoolResourceTicket ticket_0;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket_0);
 
 			Assert.IsTrue(initialCheck);
@@ -520,7 +520,7 @@ namespace UniBlocks.UnitTests
 
 			{
 
-				var ticket_1 = new GLPoolResourceInfo
+				var ticket_1 = new GLPoolResourceTicket
 				{
 					First = 2,
 					Last = 2,
@@ -540,7 +540,7 @@ namespace UniBlocks.UnitTests
 			}
 
 			{
-				var ticket_2 = new GLPoolResourceInfo
+				var ticket_2 = new GLPoolResourceTicket
 				{
 					First = 1,
 					Last = 1,
@@ -563,14 +563,14 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void LeftAndRightMerge()
 		{
-			GLPoolResourceInfo ticket_0;
+			GLPoolResourceTicket ticket_0;
 			var initialCheck = PoolResource.Allocate(NO_OF_ITEMS, out ticket_0);
 
 			Assert.IsTrue(initialCheck);
 			Assert.IsNull(PoolResource.Head);
 
 			{
-				var ticket_1 = new GLPoolResourceInfo
+				var ticket_1 = new GLPoolResourceTicket
 				{
 					First = 0,
 					Last = 0,
@@ -592,7 +592,7 @@ namespace UniBlocks.UnitTests
 
 
 			{
-				var ticket_2 = new GLPoolResourceInfo
+				var ticket_2 = new GLPoolResourceTicket
 				{
 					First = 2,
 					Last = 2,
@@ -614,7 +614,7 @@ namespace UniBlocks.UnitTests
 
 
 			{
-				var ticket_3 = new GLPoolResourceInfo
+				var ticket_3 = new GLPoolResourceTicket
 				{
 					First = 1,
 					Last = 1,

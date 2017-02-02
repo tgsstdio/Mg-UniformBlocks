@@ -5,7 +5,7 @@
 		public GLDescriptorBindingGroup ResourceType { get; set; }
 		public uint Binding { get; set; }
 		public uint DescriptorCount { get; set; }
-		public GLPoolResourceInfo Ticket { get; set; }
+		public GLPoolResourceTicket Ticket { get; set; }
 	}
 
 	public class GLNextDescriptorSet : IMgDescriptorSet

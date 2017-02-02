@@ -17,7 +17,7 @@ namespace Magnesium.OpenGL
 
         public Result AllocateDescriptorSets(MgDescriptorSetAllocateInfo pAllocateInfo, out IMgDescriptorSet[] pDescriptorSets)
         {
-			IGLDescriptorSetAllocator allocator;
+			IGLDescriptorSetAllocator allocator = null;
 			return allocator.AllocateDescriptorSets(pAllocateInfo, out pDescriptorSets);
         }
 

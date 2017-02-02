@@ -25,7 +25,7 @@ namespace UniBlocks.UnitTests
 		[TestCase]
 		public void FailedAllocation_0()
 		{
-			GLPoolResourceInfo allocation;
+			GLPoolResourceTicket allocation;
 			var result = PoolResource.Allocate(NO_OF_ITEMS + 1, out allocation);
 			Assert.IsFalse(result);
 			Assert.IsNull(allocation);
@@ -36,14 +36,14 @@ namespace UniBlocks.UnitTests
 		[ExpectedException(typeof(ArgumentOutOfRangeException))]
 		public void FailedAllocation_1()
 		{
-			GLPoolResourceInfo allocation;
+			GLPoolResourceTicket allocation;
 			PoolResource.Allocate(0, out allocation);
 		}
 
 		[TestCase]
 		public void AllItems()
 		{
-			GLPoolResourceInfo allocation;
+			GLPoolResourceTicket allocation;
 			var result = PoolResource.Allocate(NO_OF_ITEMS, out allocation);
 			Assert.IsTrue(result);
 			Assert.IsNotNull(allocation);
@@ -54,7 +54,7 @@ namespace UniBlocks.UnitTests
 		public void LessThan_0()
 		{
 			const uint REQUESTED = NO_OF_ITEMS - 1;
-			GLPoolResourceInfo allocation;
+			GLPoolResourceTicket allocation;
 			var result = PoolResource.Allocate(REQUESTED, out allocation);
 			Assert.IsTrue(result);
 			Assert.IsNotNull(allocation);
@@ -75,7 +75,7 @@ namespace UniBlocks.UnitTests
 		{
 			const uint REQUESTED_0 = 2;
 
-			GLPoolResourceInfo allocation_0;
+			GLPoolResourceTicket allocation_0;
 			var result_0 = PoolResource.Allocate(REQUESTED_0, out allocation_0);
 			Assert.IsTrue(result_0);
 			Assert.IsNotNull(allocation_0);
@@ -91,7 +91,7 @@ namespace UniBlocks.UnitTests
 			Assert.AreEqual(1, head.Count);
 
 			const uint REQUESTED_1 = 1;
-			GLPoolResourceInfo allocation_1;
+			GLPoolResourceTicket allocation_1;
 			var result_1 = PoolResource.Allocate(REQUESTED_1, out allocation_1);
 			Assert.IsTrue(result_1);
 			Assert.IsNotNull(allocation_1);
@@ -109,7 +109,7 @@ namespace UniBlocks.UnitTests
 		{
 			const uint REQUESTED_0 = 1;
 
-			GLPoolResourceInfo allocation_0;
+			GLPoolResourceTicket allocation_0;
 			var result_0 = PoolResource.Allocate(REQUESTED_0, out allocation_0);
 			Assert.IsTrue(result_0);
 			Assert.IsNotNull(allocation_0);
@@ -125,7 +125,7 @@ namespace UniBlocks.UnitTests
 			Assert.AreEqual(2, head.Count);
 
 			const uint REQUESTED_1 = 2;
-			GLPoolResourceInfo allocation_1;
+			GLPoolResourceTicket allocation_1;
 			var result_1 = PoolResource.Allocate(REQUESTED_1, out allocation_1);
 			Assert.IsTrue(result_1);
 			Assert.IsNotNull(allocation_1);
@@ -143,7 +143,7 @@ namespace UniBlocks.UnitTests
 		{
 			const uint REQUESTED_0 = 1;
 
-			GLPoolResourceInfo allocation_0;
+			GLPoolResourceTicket allocation_0;
 			var result_0 = PoolResource.Allocate(REQUESTED_0, out allocation_0);
 			Assert.IsTrue(result_0);
 			Assert.IsNotNull(allocation_0);
@@ -159,7 +159,7 @@ namespace UniBlocks.UnitTests
 			Assert.AreEqual(2, head.Count);
 
 			const uint REQUESTED_1 = 3;
-			GLPoolResourceInfo allocation_1;
+			GLPoolResourceTicket allocation_1;
 			var result_1 = PoolResource.Allocate(REQUESTED_1, out allocation_1);
 			Assert.IsFalse(result_1);
 			Assert.IsNull(allocation_1);
