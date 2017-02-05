@@ -84,7 +84,7 @@
     <Compile Include="IGLDescriptorSet.cs" />
     <Compile Include="GLDescriptorPoolResourceInfo.cs" />
     <Compile Include="IGLCmdShaderProgramCache.cs" />
-    <Compile Include="GLCmdShaderProgramCache.cs" />
+    <Compile Include="GLNextCmdShaderProgramCache.cs" />
     <Compile Include="IGLCmdShaderProgramEntrypoint.cs" />
     <Compile Include="IGLStorageBufferEntrypoint.cs" />
   </ItemGroup>
