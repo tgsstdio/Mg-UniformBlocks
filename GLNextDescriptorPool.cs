@@ -92,6 +92,14 @@ namespace Magnesium.OpenGL
 
 		public void DestroyDescriptorPool(IMgDevice device, IMgAllocationCallbacks allocator)
 		{
+			foreach (var img in CombinedImageSamplers.Items)
+			{
+				if (img != null)
+				{
+					img.Destroy();
+				}
+			}
+
 			throw new NotImplementedException();
 		}
 

@@ -83,6 +83,10 @@
     <Compile Include="GLPoolResource.cs" />
     <Compile Include="IGLDescriptorSet.cs" />
     <Compile Include="GLDescriptorPoolResourceInfo.cs" />
+    <Compile Include="IGLCmdShaderProgramCache.cs" />
+    <Compile Include="GLCmdShaderProgramCache.cs" />
+    <Compile Include="IGLCmdShaderProgramEntrypoint.cs" />
+    <Compile Include="IGLStorageBufferEntrypoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Magnesium, Version=5.0.4.30756, Culture=neutral, processorArchitecture=MSIL">
